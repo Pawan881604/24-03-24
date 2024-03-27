@@ -1,5 +1,5 @@
 .slider-containor {
-  max-height: 260px;
+  max-height: 300px;
 }
 .slider-containor img {
   max-width: 100%;
@@ -17,20 +17,15 @@
 .custom-arrow {
   position: absolute;
   z-index: 5;
-  top: 0px;
-  height: 250px;
-  background: linear-gradient(-270deg, rgba(234, 237, 237, 0), #f5f5f56b);
-  width: 50px;
-  border: 1.5px solid #000;
-  align-items: center;
+  padding: 10px;
+  border-radius: 100px;
+  color: #74c22a;
+  top: 50%;
+  background: linear-gradient(-270deg, rgb(234 237 237 / 25%), #f5f5f5b3);
   cursor: pointer;
-  justify-content: center;
   transition: all 0.3s ease-in;
-  outline: 2px solid #fff;
+  transform: translateY(-50%);
   display: none;
-}
-.custom-arrow svg {
-  font-size: 40px;
 }
 .custom-next-arrow {
   right: 0px;

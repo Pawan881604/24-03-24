@@ -8,6 +8,17 @@
   justify-content: space-between;
   margin: 20px 0px;
 }
+.prod-details-page .product-details {
+  width: 100% !important;
+  max-width: 100%;
+}
+
+.product-navigation li a {
+  font-weight: 600;
+  text-transform: capitalize;
+  opacity: 1;
+  color: #999;
+}
 .product-main-left,
 .product-main-right {
   width: 50%;
@@ -66,6 +77,7 @@
 }
 .variations .label label {
   width: 80px;
+  font-weight: 600;
 }
 .variations .label select {
   margin-top: 5px;
@@ -86,17 +98,20 @@ ins {
 del {
   color: #919191;
 }
-.product_meta span {
-  margin-right: 20px;
-  font-size: 16px;
+.product_meta span,
+.product_meta span a {
+  margin: 30px 20px 20px 0px;
+  font-weight: 600;
+  font-size: 12px;
+  text-transform: capitalize;
+  opacity: 1;
+  color: #999;
 }
 
 .product-price p {
-  font-size: 22px;
+  font-size: 30px;
   font-weight: 700;
   color: var(--G-green);
-  margin-bottom: 0px;
-  padding-right: 10px;
 }
 .row {
   display: flex;
@@ -106,7 +121,11 @@ del {
   align-items: center;
 }
 .ratings .MuiRating-sizeLarge {
-  font-size: 1.5rem;
+  font-size: 1.2rem;
+}
+.numOfReviews span {
+  font-size: 14px;
+  padding-left: 10px;
 }
 .short-description p {
   font-size: 15px;
@@ -135,9 +154,12 @@ del {
 }
 .product-purchase {
   display: flex;
+  padding: 10px 0;
   justify-content: space-between;
   align-items: center;
   margin: 10px 0;
+  border-top: 1px solid #eee;
+  border-bottom: 1px solid #eee;
 }
 .product-divider {
   width: 40%;
@@ -281,12 +303,16 @@ del {
   font-size: 10px;
   opacity: 0.9;
 }
-
+.review-area {
+  margin: 15px 0;
+  padding: 15px 0;
+  border-bottom: 1px solid #eee;
+}
 .review-main-div .MuiDialog-paperWidthSm {
   width: 800px;
 }
 .faheart {
-  font-size: 30px;
+  font-size: 15px;
   color: var(--G-green);
 }
 .prod-des-hide {
@@ -312,7 +338,7 @@ del {
   padding: 0px;
 }
 .product-price {
-  margin: 5px 0;
+  margin: 10px 0;
 }
 .summary {
   padding-top: 10px;

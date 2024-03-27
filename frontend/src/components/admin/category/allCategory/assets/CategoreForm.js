@@ -60,7 +60,7 @@ const CategoreForm = () => {
     set_active_img(index);
     set_img_id(image_id._id);
   };
-
+console.log(inputValue.Parent_category)
   useEffect(() => {
     if (images && images.length === 1) {
       set_img_id(images && images[0] && images[0]._id);
@@ -78,7 +78,7 @@ const CategoreForm = () => {
       setInputValue({
         name: "",
         slug: "",
-        Parent_category: "",
+        Parent_category: "None",
         description: "",
       });
       alert.success("Categore successfuly created");
@@ -91,7 +91,7 @@ const CategoreForm = () => {
       setInputValue({
         name: "",
         slug: "",
-        Parent_category: "",
+        Parent_category: "None",
         description: "",
       });
       alert.success("Categore successfuly created");

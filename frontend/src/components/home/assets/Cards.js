@@ -2,7 +2,7 @@ import React from "react";
 import "./cards.css";
 import { useSelector } from "react-redux";
 import { Button } from "@material-ui/core";
-import { useNavigate } from "react-router-dom";
+import { NavLink, Navigate, useNavigate } from "react-router-dom";
 import Bestselling from "./Cards/Bestselling";
 import BrandCard from "./Cards/BrandCard";
 import TopSellingProducts from "./Cards/TopSellingProducts";
@@ -15,13 +15,53 @@ const Cards = () => {
   };
 
   return (
-    <div id="cards-section" className="section-cont">
+    <section id="cards-section" className="section-cont">
       <div className="cont-area-h">
         <div className="desktop-grid-4 grid-container">
-          <Bestselling />
+          <div className="category-card">
+            <NavLink to={"/"}>
+              <div>
+                <img src="/Flap-box.webp" alt="gurez" />
+              </div>
+              <h2>FLAP BOX</h2>
+            </NavLink>
+          </div>
+          <div className="category-card">
+            <NavLink to={"/"}>
+              <div>
+                <img src="/courrgated-box-2.webp" alt="gurez"/>
+              </div>
+              <h2>COURRGATED BOX</h2>
+            </NavLink>
+          </div>
+          <div className="category-card">
+            <NavLink to={"/"}>
+              <div>
+                <img src="/Bubble-wrap-Tape-and-bar-code-la (1).webp" alt="gurez"/>
+              </div>
+              <h2>TAPE & WRAP</h2>
+            </NavLink>
+          </div>
+          <div className="category-card">
+            <NavLink to={"/"}>
+              <div>
+                <img src="/Dog-and-Cat-shampoo-2.webp" alt="gurez"/>
+              </div>
+              <h2>PET CARE</h2>
+            </NavLink>
+          </div>
+          <div className="category-card">
+            <NavLink to={"/"}>
+              <div>
+                <img src="/Hair-oil-And-Shampoo-for-men-and.webp" alt="gurez"/>
+              </div>
+              <h2>BODY CARE</h2>
+            </NavLink>
+          </div>
+          {/* <Bestselling />
           <BrandCard />
-          <TopSellingProducts />
-          <div className="desktop-grid-4-card">
+          <TopSellingProducts /> */}
+          {/* <div className="desktop-grid-4-card">
             {user && user.verified ? (
               <>
                 <h2>Hello!{user && user.name}</h2>
@@ -35,10 +75,10 @@ const Cards = () => {
                 </div>
               </>
             )}
-          </div>
+          </div> */}
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

@@ -10,6 +10,9 @@ import {
   GET_SINGLE_PRODUCT_CAT_FAIL,
   GET_SINGLE_PRODUCT_CAT_REQUEST,
   GET_SINGLE_PRODUCT_CAT_SUCCESS,
+  MAIN_NAV_CATEGORIE_FAIL,
+  MAIN_NAV_CATEGORIE_REQUEST,
+  MAIN_NAV_CATEGORIE_SUCCESS,
   NEW_CATEGORIE_FAIL,
   NEW_CATEGORIE_REQUEST,
   NEW_CATEGORIE_SUCCESS,
@@ -25,6 +28,9 @@ import {
   STATUS_SUB_CATEGORIE_FAIL,
   STATUS_SUB_CATEGORIE_REQUEST,
   STATUS_SUB_CATEGORIE_SUCCESS,
+  SUB_NAV_CATEGORIE_FAIL,
+  SUB_NAV_CATEGORIE_REQUEST,
+  SUB_NAV_CATEGORIE_SUCCESS,
   UPDATE_PARENT_CATEGORIE_FAIL,
   UPDATE_PARENT_CATEGORIE_REQUEST,
   UPDATE_PARENT_CATEGORIE_SUCCESS,
@@ -33,6 +39,40 @@ import {
   UPDATE_SUB_CATEGORIE_SUCCESS,
 } from "../constants/CategoreConstants";
 import { server_url } from "../utils/Url";
+
+export const nav_main_list = () => async (dispatch) => {
+  try {
+    dispatch({ type: MAIN_NAV_CATEGORIE_REQUEST });
+    const { data } = await axios.get(`${server_url()}/api/v1/all-categore`, {
+      withCredentials: true,
+    });
+   
+    dispatch({ type: MAIN_NAV_CATEGORIE_SUCCESS, payload: data.allCategores });
+  } catch (error) {
+    dispatch({
+      type: MAIN_NAV_CATEGORIE_FAIL,
+      payload: error.response.data.message || "Some error occurred",
+    });
+  }
+};
+
+export const nav_sub_list = () => async (dispatch) => {
+  try {
+    dispatch({ type: SUB_NAV_CATEGORIE_REQUEST });
+    const { data } = await axios.get(
+      `${server_url()}/api/v1/all-sub-categore`,
+      {
+        withCredentials: true,
+      }
+    );
+    dispatch({ type: SUB_NAV_CATEGORIE_SUCCESS, payload: data });
+  } catch (error) {
+    dispatch({
+      type: SUB_NAV_CATEGORIE_FAIL,
+      payload: error.response.data.message || "Some error occurred",
+    });
+  }
+};
 
 export const CreateNewCategore =
   (input_value, uuid, img_id) => async (dispatch) => {
@@ -113,13 +153,15 @@ export const getAllCategories = () => async (dispatch) => {
   }
 };
 
-
 export const get_all_sub_categories = () => async (dispatch) => {
   try {
     dispatch({ type: ALL_SUB_CATEGORIE_REQUEST });
-    const { data } = await axios.get(`${server_url()}/api/v1/all-sub-categore`, {
-      withCredentials: true,
-    });
+    const { data } = await axios.get(
+      `${server_url()}/api/v1/all-sub-categore`,
+      {
+        withCredentials: true,
+      }
+    );
     dispatch({ type: ALL_SUB_CATEGORIE_SUCCESS, payload: data });
   } catch (error) {
     dispatch({

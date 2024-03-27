@@ -6,7 +6,7 @@ export const FootMid = () => {
     <>
       <div className="foot-left-row foot">
         <div className="foot-left-col">
-          <h4>Customer Policies</h4>
+          <h3>Customer Policies</h3>
           <ul className="foot-list">
             <li>
               <NavLink to={"/"}>About Us</NavLink>

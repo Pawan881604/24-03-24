@@ -7,13 +7,18 @@ import { useAlert } from "react-alert";
 import { FaAlignLeft } from "react-icons/fa6";
 import Asidebar from "../layout/aside/Asidebar";
 import { useNavigate, useParams } from "react-router-dom";
-import { getAllCategories } from "../../actions/CategoreAction";
+import {
+  getAllCategories,
+  get_all_sub_categories,
+} from "../../actions/CategoreAction";
 import ProductAnimation from "../layout/loader/ProductAnimation";
 import AsideAnimation from "../layout/loader/AsideAnimation";
 import { Paginations } from "../../utils/Paginations";
+import SortProductFilter from "../../utils/SortProductFilter";
 
 const Shop = () => {
   const { shop } = useParams();
+  const [filter, setFilter] = useState(false);
   const { loding, products, productsCount, error, resultPerPage } = useSelector(
     (state) => state.products
   );
@@ -63,7 +68,6 @@ const Shop = () => {
     setClearFilter(true);
     setsideBarActive(false);
   };
-
   useEffect(() => {
     if (error) {
       dispatch(ClearError);
@@ -73,6 +77,7 @@ const Shop = () => {
       dispatch(getProduct(currentPage, price, categorie, ratings));
     }
     dispatch(getAllCategories());
+    dispatch(get_all_sub_categories());
     dispatch(getProduct(currentPage, price, ratings));
     const handleResize = () => {
       setWindowWidth(window.innerWidth);
@@ -102,7 +107,14 @@ const Shop = () => {
       {" "}
       <>
         <div className="product-cont-row shop-page">
-          <div id="prod-cont" className="prod-cont cont-area-h">
+          <div
+            id="prod-cont"
+            className={`${
+              filter
+                ? "prod-cont cont-area-h full-width"
+                : "prod-cont cont-area-h"
+            }`}
+          >
             <aside
               className={`aside-bar-cont  ${
                 sideBarActive ? "sidebar-active" : ""
@@ -114,6 +126,8 @@ const Shop = () => {
                     <AsideAnimation />
                   ) : (
                     <Asidebar
+                      setFilter={setFilter}
+                      filter={filter}
                       price={price} // filter price input slider
                       inputevent={priceHeandler} // filter price event handler
                       ratingsHeandle={ratingsHeandle} //Rating filter input handler
@@ -132,21 +146,24 @@ const Shop = () => {
                 </p>
               </div>
             ) : null}
-            <div className="row flex-wrap product-containor">
-              {loding ? (
-                length.map((item, i) => <ProductAnimation key={i} />)
-              ) : (
-                <>
-                  {products &&
-                    products
-                      .filter((item) => item.productstatus === "Active")
-                      .map((product, i) => (
-                        <div key={i} className="card-col">
-                          <ProductCard product={product} />
-                        </div>
-                      ))}
-                </>
-              )}
+            <div className="main-content-product product-containor">
+             <SortProductFilter/>
+              <div className="row flex-wrap">
+                {loding ? (
+                  length.map((item, i) => <ProductAnimation key={i} />)
+                ) : (
+                  <>
+                    {products &&
+                      products
+                        .filter((item) => item.productstatus === "Active")
+                        .map((product, i) => (
+                          <div key={i} className="card-col">
+                            <ProductCard product={product} />
+                          </div>
+                        ))}
+                  </>
+                )}
+              </div>
             </div>
           </div>
         </div>

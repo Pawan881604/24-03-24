@@ -2,7 +2,11 @@ import React, { useEffect, useState } from "react";
 import { NavLink, useParams } from "react-router-dom";
 
 import { useSelector, useDispatch } from "react-redux";
-import { getAllCategories } from "../../../../actions/CategoreAction";
+import {
+  getAllCategories,
+  nav_main_list,
+  nav_sub_list,
+} from "../../../../actions/CategoreAction";
 import { FaWineBottle } from "react-icons/fa";
 import { GiBeerBottle } from "react-icons/gi";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
@@ -17,15 +21,15 @@ export const NavList = ({ toggleContentRemove }) => {
   };
   const dispatch = useDispatch();
 
-  const {
-    loading: catLoading,
-    allcategroes,
-    error: caterror,
-  } = useSelector((state) => state.allCategroe);
+  const { loading: catLoading, nav_categores } = useSelector(
+    (state) => state.nav_parent_category
+  );
+  const { nav_sub_categores } = useSelector((state) => state.nav_sub_category);
 
   useEffect(() => {
-    dispatch(getAllCategories());
-  }, []);
+    dispatch(nav_main_list());
+    dispatch(nav_sub_list());
+  }, [dispatch]);
   const icons = [<FaWineBottle />, <GiBeerBottle />];
   return (
     <>
@@ -37,11 +41,12 @@ export const NavList = ({ toggleContentRemove }) => {
                 Shop
               </NavLink>
             </li>
-            {allcategroes &&
-              allcategroes
-                .filter((item) => item.categorystatus === true)
+            {nav_categores &&
+              nav_categores
+                .filter((item) => item.category_status === "Active")
                 .map((item, i) => (
                   <li key={i}>
+                    {console.log(item)}
                     <div className="mob-list">
                       <span onClick={toggleContentRemove}>
                         <NavLink to={`/product-category/${item.slug}`}>
@@ -59,19 +64,20 @@ export const NavList = ({ toggleContentRemove }) => {
                           : "child-navlist "
                       }
                     >
-                      {item.childs
-                        .filter((item) => item.subcategorystatus === true)
-                        .map((subItem, i) => (
-                          <li key={i}>
-                            <span onClick={toggleContentRemove}>
-                              <NavLink
-                                to={`/product-category/${item.slug}/${subItem.slug}`}
-                              >
-                                {subItem.name}
-                              </NavLink>
-                            </span>
-                          </li>
-                        ))}
+                      {nav_sub_categores &&
+                        nav_sub_categores
+                          .filter((sub) => item.uuid === sub.Parent_category &&  sub.category_status === 'Active' )
+                          .map((subItem, i) => (
+                            <li key={i}>
+                              <span onClick={toggleContentRemove}>
+                                <NavLink
+                                  to={`/product-category/${item.slug}/${subItem.slug}`}
+                                >
+                                  {subItem.name}
+                                </NavLink>
+                              </span>
+                            </li>
+                          ))}
                     </ul>
                   </li>
                 ))}
@@ -86,7 +92,10 @@ export const NavList = ({ toggleContentRemove }) => {
         </div>
       ) : (
         <div className="nav-col nav-li-list">
-          <div style={{    maxWidth: '65%',margin:'0px auto',padding:'17px 0'}} className="nav-list parent-navlist">
+          <div
+            style={{ maxWidth: "65%", margin: "0px auto", padding: "17px 0" }}
+            className="nav-list parent-navlist"
+          >
             {/* <div style={{margin:'5px 0'}} className="animated-background col3" />{" "}
             <div style={{margin:'5px 0'}} className="animated-background col3" />{" "}
             <div style={{margin:'5px 0'}} className="animated-background col3" />{" "}

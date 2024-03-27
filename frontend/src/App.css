@@ -35,7 +35,7 @@
 }
 
 :root {
-  --G-green: #73c631;
+  --G-green: #27aa32;
   --home-white: #fff;
   --g-white: #fff;
 }
@@ -56,9 +56,9 @@ h4,
 h5,
 h6 {
   margin: 0;
-  color: #111111;
+  color: #222;
   font-weight: 600;
-  font-family: "Poppins", sans-serif;
+  font-family: Poppins, sans-serif;
   transition: all 0.3s ease-in-out;
 }
 
@@ -69,20 +69,18 @@ h1 {
 }
 
 h2 {
-  font-size: calc((1.6 - 1) * 1.2vw + 0.8rem);
+  font-size: calc((1.7 - 1) * 1.2vw + 0.8rem);
   line-height: calc(1.4 * (1 + (1 - 2.5) / 25));
   margin: 0.5rem 0;
 }
-
 h3,
 .font-size-cont {
-  font-size: calc((1.17 - 1) * 1.2vw + 0.8rem);
+  font-size: calc((1.555 - 1) * 1.2vw + 0.8rem);
   line-height: calc(1.4 * (1 + (1 - 2) / 25));
   font-family: "Poppins", sans-serif;
   font-weight: 600;
   margin: 0.2rem 0;
 }
-
 h4 {
   font-size: calc((1.2 - 1) * 1.2vw + 0.8rem);
   line-height: calc(1.4 * (1 + (1 - 2) / 25));
@@ -288,6 +286,11 @@ ol li {
   background: #73c631 !important;
   color: #fff !important;
 }
+.button-danger{
+  border: 1px solid #000000 !important;
+  background: #000000 !important;
+  color: #fff !important;
+}
 .cursor-pointer {
   cursor: pointer;
 }
@@ -310,8 +313,8 @@ ol li {
   overflow: hidden !important;
   text-overflow: unset !important;
 }
-.cat-headwer-cont [role="columnheader"]{
-max-width: 100px !important;
+.cat-headwer-cont [role="columnheader"] {
+  max-width: 100px !important;
 }
 .button-loading {
   border: 1px solid #73c631 !important;

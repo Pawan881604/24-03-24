@@ -16,7 +16,7 @@ const CoupenSection = () => {
           <div className="coupen-cont">
             <div className="coupen-col">
               <h2 className="cop-font-cont">Extra 10% Off Welcome</h2>
-              <p>Welcome10</p>
+              <h3 style={{fontSize:"calc((2 - 1) * 1.2vw + 2rem)", color:'#fff'}}>Welcome10</h3>
               <p>Free shipping on all orders</p>
               <Button onClick={clickHandle}>
                 Shop now <FaArrowRightLong />

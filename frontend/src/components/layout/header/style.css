@@ -7,6 +7,13 @@ header {
   background: #ff3a75;
   padding: 4px 20px 3px;
 }
+.header-login svg {
+  font-size: 30px;
+  background: black;
+  color: #fff;
+  cursor: pointer;
+  border-radius: 100px;
+}
 header > .nav-col {
   background-color: #666;
 }
@@ -188,7 +195,7 @@ header {
   /* position: absolute;
   right: 8px;
   top: 25px; */
-  background: white;
+  color: #fff;
 }
 .ham-show-toggle {
   cursor: pointer;
@@ -252,7 +259,6 @@ header {
   .h-right-col {
     width: 49%;
   }
-
 }
 @media only screen and (max-width: 877px) {
   .h-left-col {
@@ -262,22 +268,50 @@ header {
     width: 58%;
   }
   .nav-col.nav-li-list {
-    margin:10px 0 0 0 ;
-}
+    margin: 10px 0 0 0;
+  }
 }
 @media only screen and (max-width: 767px) {
   .nav-area .MuiFab-root {
     width: 40px !important;
     height: 40px !important;
   }
+  .cop-font-cont {
+    font-size: 30px;
+  }
   .containor {
     padding: 0;
   }
   .h-left-col {
-    width: 100%;
+    text-align: center;
+  }
+
+  .h-left-col {
+    width: 33.33%;
+  }
+  .hamb-t,
+  .h-right-col {
+    width: 33.33%;
+    padding-top: 15px;
+  }
+  .hamb-t {
+    padding-left: 7px;
   }
   .h-right-col {
+    display: flex;
+    align-items: center;
+    width: 30%;
+    justify-content: end;
+  }
+  .h-right-col > div {
     display: none;
+  }
+  .h-right-col > div:nth-last-child(1) {
+    display: block;
+    width: 50%;
+    text-align: end;
+    padding-right: 10px;
+    padding-top: 5px;
   }
   .nav-li-list {
     display: none;
@@ -293,13 +327,39 @@ header {
     z-index: 100;
   }
   .mob-call {
-    padding: 20px 15px;
+    padding: 0px 15px 20px;
     width: 100%;
     height: 100%;
     background: #222529;
     border-radius: 0 15px 0 20px;
   }
-
+  .mob-call .nav-list a {
+    color: #fff;
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    padding: 8px 0;
+    border-bottom: 1px #2e3237 solid;
+  }
+  .mob-call .nav-list li {
+    border-bottom: 1px #2e3237 solid;
+    padding: 0 5px;
+  }
+  .mob-call .search-row input {
+    background-color: #222529;
+    border: 1px #2e3237 solid;
+  }
+  .mob-call .search-row {
+    gap: 0 !important;
+  }
+  .mob-call .search-row input {
+    width: 85%;
+    border-radius: none;
+  }
+  .mob-call .search-row .search-icon-div {
+    width: 15%;
+  }
   .mob-nav ul {
     flex-direction: column;
     margin-top: 20px;
@@ -375,6 +435,12 @@ header {
 #han-trans svg {
   color: #000;
 }
+.wishlist-row,
+.cart-row,
+.header-login {
+  width: 20%;
+  text-align: end;
+}
 @keyframes popup {
   from {
     transform: scale(1);
@@ -412,7 +478,18 @@ header {
   }
   .nav-mon-cont .nav-col {
     width: 100%;
-    text-align: center;
+    padding-left: 10px;
+  }
+  .hamb-t svg {
+    font-size: 30px;
+    cursor: pointer;
+  }
+  .header-login svg {
+    font-size: 30px;
+    background: black;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 100px;
   }
   .nav-mon-cont .log-anc {
     position: absolute;
@@ -527,7 +604,7 @@ header {
   .nav-area,
   .nav-list {
     align-items: start;
-  }
+   }
   .mob-list {
     display: flex;
     align-items: center;
@@ -535,7 +612,8 @@ header {
   }
 
   .mob-nav ul {
-    margin-top: 20px;
+    margin: 0px !important;
+    padding: 0px !important ;
   }
   .parent-navlist li {
     width: 100%;

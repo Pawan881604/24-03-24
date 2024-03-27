@@ -23,20 +23,30 @@ const Cards2 = ({ product }) => {
           />
         </div>
         <div className="list-sm-title">
-          <h3 style={{ margin: 0 }}>
+          <h4 style={{ margin: 0 }}>
             <NavLink style={{ fontWeight: 500 }} to={"/"}>
               {" "}
               {product.product_name}
             </NavLink>
-          </h3>
-          <div className="list-sm-price">
-            <p>
+          </h4>
+          <div>
+            <p
+              style={{
+                fontSize: "14px",
+                gap: "5px",
+                justifyContent: "center",
+                fontWeight: 600,
+                color: "rgb(0, 0, 0)",
+              }}
+            >
               <span>
                 <Currency price={product.product_regular_price} />
               </span>
-              -
+              <span>-</span>
               <span>
-                <Currency price={product.product_sale_price} />
+                <del>
+                  <Currency price={product.product_sale_price} />
+                </del>
               </span>
             </p>
           </div>

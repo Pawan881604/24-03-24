@@ -230,19 +230,30 @@ const ProductDetails = () => {
                           review_length={review_length}
                           review_average={review_average}
                         />
-                        <div className="product-purchase">
-                          <AddQuantitBtns
-                            decreaseQuantity={decreaseQuantity}
-                            quentity={quentity}
-                            increaseQuantity={increaseQuantity}
-                          />
-                          <AddToCartBtn
-                            product={product}
-                            addToCartHandler={addToCartHandler}
-                          />
-                        </div>
-                        <div className="prod-wish">
-                          <Button onClick={buyHandler}>Buy Now</Button>
+                        <div className="product-purchase row">
+                          <div className="col-md-4">
+                            <AddQuantitBtns
+                              decreaseQuantity={decreaseQuantity}
+                              quentity={quentity}
+                              increaseQuantity={increaseQuantity}
+                            />
+                          </div>
+                          <div style={{ padding: 10 }} className="row col-md-8">
+                            <div className="col-md-6">
+                              <AddToCartBtn
+                                product={product}
+                                addToCartHandler={addToCartHandler}
+                              />
+                            </div>
+                            <div className="col-md-6">
+                              <Button
+                                className="button-danger"
+                                onClick={buyHandler}
+                              >
+                                Buy Now
+                              </Button>
+                            </div>
+                          </div>
                         </div>
                       </div>
                       <AddReview

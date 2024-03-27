@@ -2,7 +2,6 @@ import React from "react";
 import Logo from "../../header/assets/Logo";
 import { NavLink } from "react-router-dom";
 
-
 export const FootLeft = () => {
   return (
     <>
@@ -10,23 +9,41 @@ export const FootLeft = () => {
         <div className="foot-left-col">
           <div className="foot-logo">
             {/* <Logo /> */}
-            <h4>Contact Info</h4>
+            <h3>Contact Info</h3>
           </div>
           <div className="contacts">
-            <p><strong>Email:</strong> <br/>
-            <NavLink to={"/"}>ecom@gurez.com</NavLink></p>
             <p>
-              <strong>Working Hour:</strong><br/>
-              Monday - Sunday
-              <br />
-              10:00 AM to 7:00 PM
+              <span>
+                <strong>PHONE:</strong>
+              </span>
+              <span>
+                <NavLink to={"tel:+918222944567"}>
+                  Toll Free +91 82229 44567
+                </NavLink>
+              </span>
             </p>
             <p>
-             <strong> Our Store Address:</strong>
-              <br />
-              Near Church, Anand Vihar Colony, Karnal, Haryana 132001
+              <span>
+                <strong>Email:</strong>
+              </span>
+              <span>
+                <NavLink to={"/"}>ecom@gurez.com</NavLink>
+              </span>
             </p>
-            
+            <p>
+              <span>
+                <strong>ADDRESS:</strong>
+              </span>
+              <span>
+                Near Church, Anand Vihar Colony, Karnal, Haryana 132001
+              </span>
+            </p>
+            <p>
+              <span>
+                <strong>WORKING DAYS / HOURS:</strong>
+              </span>
+              <span>Mon - Sun / 9:00 AM - 8:00 PM</span>
+            </p>
           </div>
         </div>
       </div>

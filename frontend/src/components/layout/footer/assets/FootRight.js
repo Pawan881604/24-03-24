@@ -6,7 +6,7 @@ export const FootRight = () => {
     <>
       <div className="foot-right-row foot">
         <div className="foot-right-col">
-          <h4>Quick Links</h4>
+          <h3>Quick Links</h3>
           <ul className="foot-list">
           <li>
               <NavLink to={"/registration"}>Login/Signup</NavLink>

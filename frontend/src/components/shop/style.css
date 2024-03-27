@@ -1,24 +1,44 @@
 #prod-cont {
   display: flex;
   padding: 0px;
+  position: relative;
   gap: 10px;
+  overflow: hidden;
 }
 .shop-page {
   padding: 40px 0;
 }
 aside {
   width: 25%;
+  transition: all 0.3s ease-in-out;
 }
 .sidebar-cont {
   margin-bottom: 40px;
   transition: all 0.3s ease-in-out;
-  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  /* box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px; */
   border-radius: 10px;
   padding-bottom: 15px;
   background-color: #fff;
   /* position: sticky;
     position: -webkit-sticky;
     top: 40px; */
+}
+.filter {
+  border: 1px solid #6dce3e !important;
+  color: #6dce3e !important;
+  position: absolute !important;
+  left: 20px;
+  top: 0;
+  width: 110px;
+  z-index: 10;
+  background-color: #fff;
+}
+.filter-arrow {
+  font-size: 20px;
+}
+.filter:hover {
+  background: #6dce3e !important;
+  color: #fff !important;
 }
 .p-sho-cont {
   width: 75%;
@@ -80,10 +100,34 @@ aside {
 .pageItemActive a {
   color: #fff !important;
 }
-
+.full-width aside {
+  width: 0% !important;
+}
+.full-width .product-containor {
+  width: 100% !important;
+}
+.full-width .product-containor .card-col {
+  width: 24% !important;
+}
+.full-width .mob--cont {
+  display: none;
+}
+.full-width .inner-aside-filter button:nth-child(2),
+.full-width hr {
+  display: none;
+}
+.product-toolbox select {
+  border-color: #ccc;
+  cursor: pointer;
+  border-radius: 2px;
+  max-width: none;
+}
 @media only screen and (max-width: 1008px) {
   .shop-page .aside-bar-cont {
     width: 30%;
+  }
+  .full-width .product-containor .card-col {
+    width: 33.33% !important;
   }
   .shop-page .product-containor .card-col {
     width: 31.5% !important;
@@ -129,7 +173,7 @@ aside {
   .mob-filter p {
     display: inline;
     cursor: pointer;
-    border:1px solid var(--G-green);
+    border: 1px solid var(--G-green);
     padding: 4px 15px;
   }
   .mob-filter svg {
@@ -148,7 +192,7 @@ aside {
     z-index: 50;
   }
 }
-@media screen and (max-width:768px) {
+@media screen and (max-width: 768px) {
   .shop-page .aside-bar-cont {
     width: 100% !important;
   }

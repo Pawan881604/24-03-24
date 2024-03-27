@@ -7,7 +7,7 @@ const SocilaMedia = () => {
   return (
     <div className='social-div'>
     <div className="social-links">
-    <h4>Follow us on:</h4>
+    <h3>Follow us on:</h3>
     <div className="social-link-row">
       <NavLink to={"/"}>
         <FaFacebook />

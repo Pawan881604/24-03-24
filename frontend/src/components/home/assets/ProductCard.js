@@ -121,17 +121,6 @@ const ProductCard = ({ product }) => {
                   ))}
               </p>
             </div>
-            <div className="product-price space-set">
-              <p>
-                <span>
-                  <Currency price={product.product_regular_price} />
-                </span>
-                -
-                <span>
-                  <Currency price={product.product_sale_price} />
-                </span>
-              </p>
-            </div>
             <h3>
               <Link
                 className="product-card space-set font-size-cont"
@@ -140,7 +129,18 @@ const ProductCard = ({ product }) => {
                 {product.product_name.substr(0, 50)}...
               </Link>
             </h3>
-            <div className="rev-are space-set">
+            <div className="">
+              <p style={{gap:5,justifyContent:'center',fontWeight:600,color:'#000'}} className="row">
+                <span>
+                  <Currency price={product.product_regular_price} />
+                </span>
+               <span>-</span>
+                <span>
+                  <Currency price={product.product_sale_price} />
+                </span>
+              </p>
+            </div>
+            <div style={{gap:5,justifyContent:'center',alignItems:'center'}} className="row">
               <Rating {...options} />
               <span className="rev-tot">
                 (

@@ -3,7 +3,6 @@ import { NavList } from "./NavList";
 import { Search } from "./Search";
 import { FaXmark } from "react-icons/fa6";
 
-
 export const MobNav = ({ isContentVisible, toggleContentRemove }) => {
   return (
     <>
@@ -12,11 +11,15 @@ export const MobNav = ({ isContentVisible, toggleContentRemove }) => {
         className="mob-nav"
       >
         <div className="mob-call">
-          <div className="hab-remove">
-            <FaXmark onClick={toggleContentRemove} />
+          <div className="side-top-bar row space-between-center">
+            <div className="col-md-10">
+            <Search />
+            </div>
+            <div className="hab-remove col-md-3">
+              <FaXmark onClick={toggleContentRemove} />
+            </div>
           </div>
-          <Search />
-          <NavList  toggleContentRemove={toggleContentRemove} />
+          <NavList toggleContentRemove={toggleContentRemove} />
         </div>
       </div>
     </>

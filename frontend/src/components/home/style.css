@@ -46,7 +46,7 @@
 .shop-page .product-card {
   margin-bottom: 40px;
   transition: all 0.3s ease-in-out;
-  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  /* box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px; */
   border-radius: 10px;
   padding-bottom: 15px;
   background-color: #fff;
@@ -106,10 +106,20 @@
   position: relative;
   z-index: 50;
 }
+.product-details{
+  max-width: 250px;
+  margin: 0 auto;
+}
 .product-card-dis p {
   min-height: 80px;
 }
 .product-details h3 a {
+  font-size: calc((1.55 - 1) * 1.2vw + 0.8rem);
+  line-height: calc(1.4 * (1 + (1 - 2) / 25));
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  color: #666;
+  margin: 0.2rem 0;
   width: 100%;
   white-space: nowrap;
   display: block;
@@ -146,8 +156,15 @@
   ); Adjust the color and opacity as needed */
   z-index: 1; /* Adjust the z-index to make sure it's above the background image */
 }
+.product-card .MuiRating-root,
+.card-containor .MuiRating-root{
+  font-size: 1rem !important; 
+} 
+.rev-tot{
+  font-size: 12px;
+}
 .coupen-col {
-  padding: 100px 0;
+  padding: 70px 0;
   position: relative;
   z-index: 2;
 }
@@ -157,7 +174,7 @@
 
 .coupen-col p {
   font-size: 20px;
-  margin: 10px 0;
+  font-weight: 600;
   color: #fff;
 }
 .coupen-col button {
@@ -197,10 +214,17 @@
   padding-left: 10px;
   font-size: 30px;
 }
-
+.category-card h2 {
+  font-size: 16px;
+  text-align: center;
+  background: #2d2f35;
+  margin: -05px 0px 0px;
+  padding: 5px 0 5px 0;
+  color: #ffffffb3;
+}
 .grid-container {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   gap: 10px;
   width: 100%;
 }
@@ -293,7 +317,7 @@
 .Latest-content .card-containor {
   margin-bottom: 10px;
 }
-.product-list-sm div:nth-child(2) h3 a {
+.product-list-sm div:nth-child(2) h4 a {
   display: block;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
@@ -302,6 +326,11 @@
   /* line-height: 1.5;
   white-space: nowrap; */
   height: 42px;
+  font-size: calc((1.55 - 1)* 1.2vw + 0.8rem);
+    line-height: calc(1.4*(1 +(1 - 2) / 25));
+    color: #666; 
+    font-weight: 600;
+    
 }
 
 /* product card */
@@ -388,7 +417,7 @@
   .image-card {
     flex-wrap: wrap;
   }
-  .image-card  .col-md-5{
+  .image-card .col-md-5 {
     width: 100%;
   }
   #prod-cont .prod-card-img {

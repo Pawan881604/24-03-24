@@ -9,17 +9,21 @@ import NewsLetter from "./assets/NewsLetter";
 export const Footer = () => {
   return (
     <footer className="footer">
-      <div className="main-footer" style={{maxWidth:"1200px",margin:"0 auto"}}>
-
-      <NewsLetter/>
+      <div
+        className="main-footer"
+        style={{ maxWidth: "1200px", margin: "0 auto" }}
+      >
+        <NewsLetter />
       </div>
       <div className="foot-col">
         <FootLeft />
         <FootMid />
         <FootRight />
-        <SocilaMedia/>
+        <SocilaMedia />
       </div>
-      
+      <div className="rights">
+        <p style={{ textAlign: "center" }}>Gurez © 2022. All Rights Reserved</p>
+      </div>
     </footer>
   );
 };

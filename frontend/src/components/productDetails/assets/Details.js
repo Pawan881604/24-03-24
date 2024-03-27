@@ -52,7 +52,7 @@ const Details = ({
       });
     return value;
   };
-
+  console.log(product);
   useEffect(() => {
     if (labelValue) setVariantPriceValue(DefaultValueFun(labelValue));
   }, [labelValue && labelValue]);
@@ -61,7 +61,7 @@ const Details = ({
     <>
       <div className="summary entry-summary">
         <div className="product-navigation">
-          <ul>
+          <ul style={{ alignItems: "center" }}>
             <li>
               <NavLink to={"/"}>
                 <CiHome />
@@ -89,7 +89,28 @@ const Details = ({
             <li>
               <IoIosArrowForward />
             </li>
-            <li>{String(product && product.product_name).substr(0, 15)}...</li>
+            <li>
+              <NavLink
+                to={`/product-category/${
+                  product &&
+                  product.product_subcategory &&
+                  product.product_subcategory[0] &&
+                  product.product_subcategory[0].slug
+                }`}
+              >
+                {product &&
+                  product.product_subcategory &&
+                  product.product_subcategory &&
+                  product.product_subcategory[0] &&
+                  product.product_subcategory[0].name}
+              </NavLink>
+            </li>
+            <li>
+              <IoIosArrowForward />
+            </li>
+            <li className="xsm-font-size">
+              {String(product && product.product_name).substr(0, 20)}...
+            </li>
           </ul>
         </div>
         <h1 className="product_title entry-title">
@@ -97,17 +118,18 @@ const Details = ({
         </h1>
         <div className="product_meta">
           <span>
-            <b>Id:</b> #{product && product._id}
+            SKU: N/A
+            {/* <b>Id:</b> #{product && product._id} */}
           </span>
           <span>
-            <b>CATEGORY:</b>
-
+            CATEGORY: 
             {product && product.product_subcategory !== null
               ? product &&
                 product.product_subcategory &&
                 product.product_subcategory.map((item, i) => (
                   <>
                     <NavLink
+                    style={{margin:0}}
                       key={i}
                       to={`/product-category/${
                         product.product_category[0] &&
@@ -120,7 +142,6 @@ const Details = ({
                   </>
                 ))
               : null}
-
             <NavLink
               to={
                 product && product.product_subcategory !== null
@@ -165,9 +186,8 @@ const Details = ({
         <div className="ratings">
           <StarComponent review={review_average && review_average} />
           <div className="numOfReviews">
-            <span> 
-  
-              {review_length && review_length>0
+            <span>
+              {review_length && review_length > 0
                 ? `(${review_length})`
                 : "(Reviews)"}
             </span>
@@ -193,7 +213,7 @@ const Details = ({
         ) : (
           <div className="variations">
             <div className="label">
-              <label>{postmeta && postmeta.meta_key}</label>
+              <label>{postmeta && postmeta.meta_key} :</label>
               <select
                 onClick={(e) => {
                   setLabel(e.target.value);

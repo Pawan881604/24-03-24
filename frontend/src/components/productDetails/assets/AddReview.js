@@ -22,13 +22,23 @@ const AddReview = ({
   return (
     <>
       <div className="review-area">
-        <DialogActions>
-          <div>
-            <FaHeart  className="faheart cursor-pointer" onClick={()=>addToWishtHandler()} />
+        <DialogActions style={{alignItems:'center',}} className="row">
+          <div className="col-md-6">
+            <Button onClick={() => addToWishtHandler()}>
+              <span style={{paddingTop:3,paddingRight:10}}>
+                <FaHeart className="faheart cursor-pointer" />
+              </span>
+              <span>Add to wishlist</span>
+            </Button>
           </div>
-          <Button className="button-success" onClick={()=>submitReviewToggle()}>
-            <FaAngellist /> Add Review
-          </Button>
+          <div className="col-md-6">
+            <Button
+              className="button-success"
+              onClick={() => submitReviewToggle()}
+            >
+              <FaAngellist /> Add Review
+            </Button>
+          </div>
         </DialogActions>
         <Dialog
           className="review-main-div"

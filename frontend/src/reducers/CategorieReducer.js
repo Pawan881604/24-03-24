@@ -9,6 +9,9 @@ import {
   GET_SINGLE_PRODUCT_CAT_FAIL,
   GET_SINGLE_PRODUCT_CAT_REQUEST,
   GET_SINGLE_PRODUCT_CAT_SUCCESS,
+  MAIN_NAV_CATEGORIE_FAIL,
+  MAIN_NAV_CATEGORIE_REQUEST,
+  MAIN_NAV_CATEGORIE_SUCCESS,
   NEW_CATEGORIE_FAIL,
   NEW_CATEGORIE_REQUEST,
   NEW_CATEGORIE_RESET,
@@ -29,6 +32,9 @@ import {
   STATUS_SUB_CATEGORIE_REQUEST,
   STATUS_SUB_CATEGORIE_RESET,
   STATUS_SUB_CATEGORIE_SUCCESS,
+  SUB_NAV_CATEGORIE_FAIL,
+  SUB_NAV_CATEGORIE_REQUEST,
+  SUB_NAV_CATEGORIE_SUCCESS,
   UPDATE_PARENT_CATEGORIE_FAIL,
   UPDATE_PARENT_CATEGORIE_REQUEST,
   UPDATE_PARENT_CATEGORIE_RESET,
@@ -38,6 +44,72 @@ import {
   UPDATE_SUB_CATEGORIE_RESET,
   UPDATE_SUB_CATEGORIE_SUCCESS,
 } from "../constants/CategoreConstants";
+
+export const main_nav_categore_Reducer = (
+  state = { nav_categores: [] },
+  action
+) => {
+  switch (action.type) {
+    case MAIN_NAV_CATEGORIE_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case MAIN_NAV_CATEGORIE_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        success: true,
+        nav_categores: action.payload,
+      };
+    case MAIN_NAV_CATEGORIE_FAIL:
+      return {
+        ...state,
+        loading: false,
+        success: false,
+      };
+    case ALL_CATEGORIE_ERRORS:
+      return {
+        ...state,
+        error: null,
+      };
+    default:
+      return state;
+  }
+};
+
+export const sub_nav_categore_Reducer = (
+  state = { nav_sub_categores: [] },
+  action
+) => {
+  switch (action.type) {
+    case SUB_NAV_CATEGORIE_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case SUB_NAV_CATEGORIE_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        success: true,
+        nav_sub_categores: action.payload.all_sub_categores,
+      };
+    case SUB_NAV_CATEGORIE_FAIL:
+      return {
+        ...state,
+        loading: false,
+        success: false,
+      };
+    case ALL_CATEGORIE_ERRORS:
+      return {
+        ...state,
+        error: null,
+      };
+    default:
+      return state;
+  }
+};
 
 export const categore_Reducer = (state = { allcategores: [] }, action) => {
   switch (action.type) {

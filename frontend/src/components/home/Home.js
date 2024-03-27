@@ -14,7 +14,6 @@ import ProductAnimation from "../layout/loader/ProductAnimation";
 import Deli from "./assets/Deli";
 import MobileSlider from "./assets/MobileSlider";
 
-
 export const Home = () => {
   const alert = useAlert();
   const dispatch = useDispatch();
@@ -59,13 +58,11 @@ export const Home = () => {
         content={"Discover toy fectory"}
         keywords={"toys"}
       />
-      {windowWidth < 768 ? <MobileSlider/> : <HeroSlider />}
-      
-    
+      {windowWidth < 768 ? <MobileSlider /> : <HeroSlider />}
       <Cards />
       <section id="homepage" className="section-cont">
         <div className="coll-title">
-          <h2>New Products</h2>
+          <h2>Best Sellers​</h2>
         </div>
         <div id="prod-cont" className="prod-cont cont-area-h">
           <div className="row flex-wrap">
@@ -87,7 +84,7 @@ export const Home = () => {
       <section id="homepage" className="section-cont">
         <div className="img-containor">
           <div id="prod-cont" className="prod-cont cont-area-h">
-            <div style={{gap:10}} className="row image-card">
+            <div style={{ gap: 10 }} className="row image-card">
               <div className="col-md-5 border-radius">
                 <img src="./Beauty-Care.webp" alt="Beauty-Care" />
               </div>
@@ -105,7 +102,7 @@ export const Home = () => {
       <CoupenSection />
       <section id="homepage" className="section-cont">
         <div className="coll-title">
-          <h2>Feature Products</h2>
+          <h2>Our Featured</h2>
         </div>
 
         <div id="prod-cont" className="prod-cont cont-area-h">

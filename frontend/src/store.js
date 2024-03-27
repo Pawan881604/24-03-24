@@ -51,6 +51,8 @@ import {
   singleCatReducer,
   updateParentCategoryReducer,
   sub_categore_Reducer,
+  main_nav_categore_Reducer,
+  sub_nav_categore_Reducer,
 } from "./reducers/CategorieReducer";
 import {
   BlogPostReducer,
@@ -76,6 +78,8 @@ import { postMetaReducer } from "./reducers/PostMetaReducer";
 import { reviewReducer } from "./reducers/ReviewsReducer";
 
 const reducer = combineReducers({
+  nav_parent_category: main_nav_categore_Reducer,
+  nav_sub_category: sub_nav_categore_Reducer,
   products: productReducer,
   productDetails: productDetailsReducer,
   catProducts: CatReducer,

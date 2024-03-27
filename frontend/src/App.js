@@ -400,7 +400,7 @@ function App() {
             </div>
           </div>
           <Footer />
-          <BottomNav />
+          {/* <BottomNav /> */}
         </>
       )}
     </Router>
