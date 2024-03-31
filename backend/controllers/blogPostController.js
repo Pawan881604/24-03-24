@@ -22,7 +22,7 @@ exports.getAllBlogPost = catchAsyncError(async (req, res, next) => {
       { path: "seo", model: "SEO" },
     ])
     .exec();
-  console.log(blog);
+  
   const reverseBlog = blog.reverse();
   res.status(200).json({
     success: true,

@@ -1,3 +1,4 @@
+import Cookies from "universal-cookie";
 import {
   CREATE_ORDER_REQUEST,
   CREATE_ORDER_SUCCESS,
@@ -28,6 +29,7 @@ import {
 
 import axios from "axios";
 import { server_url } from "../utils/Url";
+import { get_headers, multi_methods_headers } from "../utils/Headers";
 
 export const createOrder =
   (order, payment_mode) => async (dispatch, getState) => {
@@ -37,16 +39,11 @@ export const createOrder =
       const formData = new FormData();
       formData.append("order_details", order_details);
       formData.append("payment_mode", payment_mode);
-      const config = {
-        withCredentials: true,
-        headers: {
-          "Content-Type": "application/json",
-        },
-      };
+
       const data = await axios.post(
         `${server_url()}/api/v1/order/new`,
         formData,
-        config
+        multi_methods_headers()
       );
 
       dispatch({ type: CREATE_ORDER_SUCCESS, payload: data.data.Order });
@@ -61,9 +58,10 @@ export const createOrder =
 export const getMyorders = () => async (dispatch) => {
   try {
     dispatch({ type: MY_ORDER_REQUEST });
-    const { data } = await axios.get(`${server_url()}/api/v1/orders/me`, {
-      withCredentials: true,
-    });
+    const { data } = await axios.get(
+      `${server_url()}/api/v1/orders/me`,
+      get_headers()
+    );
     dispatch({
       type: MY_ORDER_SUCCESS,
       payload: data.Orders,
@@ -79,9 +77,10 @@ export const getMyorders = () => async (dispatch) => {
 export const getOrderDetails = (id) => async (dispatch) => {
   try {
     dispatch({ type: ORDER_DETAILS_REQUEST });
-    const { data } = await axios.get(`${server_url()}/api/v1/order/${id}`, {
-      withCredentials: true,
-    });
+    const { data } = await axios.get(
+      `${server_url()}/api/v1/order/${id}`,
+      get_headers()
+    );
     dispatch({
       type: ORDER_DETAILS_SUCCESS,
       payload: data,
@@ -99,9 +98,7 @@ export const getAdminOrderDetails = (id) => async (dispatch) => {
     dispatch({ type: ORDER_DETAILS_REQUEST });
     const { data } = await axios.get(
       `${server_url()}/api/v1/admin/order/${id}`,
-      {
-        withCredentials: true,
-      }
+      get_headers()
     );
     dispatch({
       type: ORDER_DETAILS_SUCCESS,
@@ -120,9 +117,10 @@ export const getAdminOrderDetails = (id) => async (dispatch) => {
 export const getAllorders = () => async (dispatch) => {
   try {
     dispatch({ type: ALL_ORDER_REQUEST });
-    const { data } = await axios.get(`${server_url()}/api/v1/admin/orders`, {
-      withCredentials: true,
-    });
+    const { data } = await axios.get(
+      `${server_url()}/api/v1/admin/orders`,
+      get_headers()
+    );
     dispatch({
       type: ALL_ORDER_SUCCESS,
       payload: data.Orders,
@@ -165,16 +163,11 @@ export const updateOrder =
       formData.append("phoneNo", phoneNo);
       formData.append("link", productId);
       formData.append("order_info_uuid", order_info_uuid);
-      const config = {
-        withCredentials: true,
-        headers: {
-          "Content-Type": "application/json",
-        },
-      };
+
       const { data } = await axios.put(
         `${server_url()}/api/v1/admin/order/${id}`,
         formData,
-        config
+        multi_methods_headers()
       );
       dispatch({ type: UPDATE_ORDER_SUCCESS, payload: data.success });
     } catch (err) {
@@ -190,9 +183,7 @@ export const deleteOrder = (id) => async (dispatch) => {
     dispatch({ type: DELETE_ORDER_REQUEST });
     const { data } = await axios.delete(
       `${server_url()}/api/v1/admin/order/${id}`,
-      {
-        withCredentials: true,
-      }
+      get_headers()
     );
     dispatch({ type: DELETE_ORDER_SUCCESS, payload: data.success });
   } catch (err) {
@@ -205,12 +196,12 @@ export const deleteOrder = (id) => async (dispatch) => {
 
 export const order_shipping_info = (id) => async (dispatch) => {
   try {
+    const cookies = new Cookies(null, { path: "/" });
+    console.log(cookies.get("token"));
     dispatch({ type: ORDER_SHIPPING_INFO_REQUEST });
     const { data } = await axios.get(
       `${server_url()}/api/v1/order/shipping-info/${id}`,
-      {
-        withCredentials: true,
-      }
+      get_headers()
     );
 
     dispatch({ type: ORDER_SHIPPING_INFO_SUCCESS, payload: data.shipping });
@@ -227,9 +218,7 @@ export const order_details_info = (id) => async (dispatch) => {
     dispatch({ type: ORDER_DETAILS_INFO_REQUEST });
     const { data } = await axios.get(
       `${server_url()}/api/v1/order/order-details-info/${id}`,
-      {
-        withCredentials: true,
-      }
+      get_headers()
     );
     dispatch({ type: ORDER_DETAILS_INFO_SUCCESS, payload: data.order_details });
   } catch (err) {

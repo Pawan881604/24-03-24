@@ -22,6 +22,7 @@ header > .nav-col a {
 }
 header .parent-navlist .child-navlist a {
   color: #000;
+  padding: 10px 15px;
 }
 .tpbr_box p {
   line-height: 25px;
@@ -340,11 +341,9 @@ header {
     font-weight: 600;
     text-transform: uppercase;
     padding: 8px 0;
-    border-bottom: 1px #2e3237 solid;
   }
   .mob-call .nav-list li {
     border-bottom: 1px #2e3237 solid;
-    padding: 0 5px;
   }
   .mob-call .search-row input {
     background-color: #222529;
@@ -377,6 +376,9 @@ header {
 }
 .mob-nav .nav-li-list {
   display: block !important;
+  overflow: scroll;
+  height: 100vh;
+  padding-bottom: 120px;
 }
 .mob-call .search-row {
   display: flex;
@@ -406,9 +408,7 @@ header {
   justify-content: end;
 }
 .mob-call .child-navlist {
-  margin: 05px 0;
   width: 100%;
-  border-radius: 5px;
 }
 .mob-call li svg {
   font-size: 18px;
@@ -572,11 +572,17 @@ header {
   position: absolute;
   display: none;
   background: white;
-  width: 200px;
+  width: 260px;
+  left: -43px;
+  top: 20px;
+  padding: 8px 13px !important;
 }
 .child-navlist li {
   padding: 8px 0;
   border-bottom: 1px solid #eee;
+}
+.child-navlist li:nth-last-child(1){
+  border-bottom: 0;
 }
 .child-navlist li a {
   color: #000;
@@ -604,7 +610,7 @@ header {
   .nav-area,
   .nav-list {
     align-items: start;
-   }
+  }
   .mob-list {
     display: flex;
     align-items: center;

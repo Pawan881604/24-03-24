@@ -11,8 +11,7 @@ exports.createBookmark = catchAsyncError(async (req, res, next) => {
    
     } = req.body;
     const user=req.user._id; 
-    console.log(user)
-    
+
    
       const wishlist = await Bookmark.create({
           wishlist_product_id,

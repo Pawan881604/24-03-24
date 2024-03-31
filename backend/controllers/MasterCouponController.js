@@ -174,7 +174,7 @@ async function isWithinUsagelimitRange(coupon, orders, user) {
   const filter_order = order.filter(
     (item) => item.order_info_status === "Delivered"
   );
-  console.log(filter_order);
+
   if (coupon.master_coupon_total_usage_limit > filter_order.length) return true;
 }
 

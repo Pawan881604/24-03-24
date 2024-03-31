@@ -191,8 +191,8 @@
 .order-thank {
   display: flex;
   align-items: center;
-  padding: 20px;
-  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  padding: 30px;
+  box-shadow: 0 5px 20px 0 rgba(0,0,0,0.1);
   font-size: 16px;
   border-radius: 10px;
   color: #666;
@@ -201,14 +201,16 @@
 }
 
 .order-thank svg {
+  opacity: 0.8;
   margin-right: 20px;
-  font-size: 40px;
+  font-size: 60px;
   vertical-align: middle;
   color: var(--G-green);
 }
 .order-thank p {
   margin-bottom: 0;
   line-height: 1;
+  font-weight: 600;
   letter-spacing: -0.025em;
 }
 .order-thank p strong {

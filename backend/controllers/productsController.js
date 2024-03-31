@@ -74,7 +74,7 @@ exports.createProducts = catchAsyncError(async (req, res, next) => {
     product_sale_price,
     Default_value,
   } = req.body;
-  // console.log(req.body);
+  
   // let generalPrice = JSON.parse(general_Price);
   let variationData = JSON.parse(variation);
 
@@ -134,7 +134,7 @@ exports.createProducts = catchAsyncError(async (req, res, next) => {
   //   });
   // }
 
-  // console.log(Object.keys(variationData).length > 0)
+
 
   if (variationData.meta_value) {
     variationData.meta_value.filter((item) => {
@@ -174,7 +174,7 @@ exports.createProducts = catchAsyncError(async (req, res, next) => {
 
 //----------get all produts
 exports.getAllProducts = catchAsyncError(async (req, res, next) => {
-  const resultPerpage = 12;
+  const resultPerpage = 6;
   const productCount = await products.countDocuments();
   // const filterProduct = await toggleModel.find();
   const newProducts = [];
@@ -306,7 +306,7 @@ exports.updateProducts = catchAsyncError(async (req, res, next) => {
   const maxPrice =
     product_Type === "Simple product" ? product_regular_price : 0;
   const minPrice = product_Type === "Simple product" ? product_sale_price : 0;
-  console.log(req.params.id);
+
 
   // // console.log(postMetaData)
   // // else {

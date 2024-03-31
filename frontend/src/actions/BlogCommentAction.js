@@ -9,6 +9,7 @@ import {
   GET_BLOG_COMMENT_SUCCESS,
 } from "../constants/BlogCommentConstant";
 import { server_url } from "../utils/Url";
+import { get_headers, multi_methods_headers } from "../utils/Headers";
 
 //--------------CREATE COMMENT-------------
 
@@ -19,16 +20,11 @@ export const CreateBlogCommentAction =
       const formData = new FormData();
       formData.append("comment", comment);
       formData.append("blogId", blogId);
-      const config = {
-        withCredentials: true,
-        headers: {
-          "Content-Type": "application/json",
-        },
-      };
+     
       const { data } = await axios.post(
         `${server_url()}/api/v1/blog-comment`,
         formData,
-        config
+        multi_methods_headers()
       );
       dispatch({ type: CREATE_BLOG_COMMENT_SUCCESS, payload: data });
     } catch (error) {
@@ -46,9 +42,7 @@ export const GetBlogCommentAction = () => async (dispatch) => {
     dispatch({ type: GET_BLOG_COMMENT_REQUEST });
     const { data } = await axios.get(
       `${server_url()}/api/v1/get-blog-comment`,
-      {
-        withCredentials: true,
-      }
+     get_headers()
     );
     dispatch({ type: GET_BLOG_COMMENT_SUCCESS, payload: data.commentdata });
   } catch (error) {

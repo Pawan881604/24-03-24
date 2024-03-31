@@ -21,15 +21,14 @@ import {
   ALL_BLOG_SEARCH_FAIL,
 } from "../constants/BlogPostConstants";
 import { server_url } from "../utils/Url";
+import { get_headers, multi_methods_headers } from "../utils/Headers";
 
 export const searchBlog = (searchData) => async (dispatch) => {
   try {
     dispatch({ type: ALL_BLOG_SEARCH_REQUEST });
     const { data } = await axios.get(
       `${server_url()}/api/v1/blog/all-post?keyword=${searchData}`,
-      {
-        withCredentials: true,
-      }
+     get_headers()
     );
     dispatch({ type: ALL_BLOG_SEARCH_SUCCESS, payload: data });
   } catch (err) {
@@ -49,9 +48,7 @@ export const GetBlogPost =
       if (category) {
         link = `${server_url()}/api/v1/blog/all-post?page=${currentPage}&category=${category}`;
       }
-      const { data } = await axios.get(link, {
-        withCredentials: true,
-      });
+      const { data } = await axios.get(link,get_headers());
       dispatch({
         type: ALL_BLOG_SUCCESS,
         payload: data,
@@ -69,9 +66,7 @@ export const GetBlogPost =
 export const singleBlogPost = (id) => async (dispatch) => {
   try {
     dispatch({ type: SINGLE_BLOG_POST_REQUEST });
-    const { data } = await axios.get(`${server_url()}/api/v1/blog/post/${id}`, {
-      withCredentials: true,
-    });
+    const { data } = await axios.get(`${server_url()}/api/v1/blog/post/${id}`,get_headers());
     dispatch({
       type: SINGLE_BLOG_POST_SUCCESS,
       payload: data.blog,
@@ -109,16 +104,11 @@ export const CreateBlogPost =
       formData.append("keyword", keyword);
       formData.append("metadec", metadec);
       formData.append("metalink", metalink);
-      const config = {
-        withCredentials: true,
-        headers: {
-          "Content-Type": "application/json",
-        },
-      };
+
       const { data } = await axios.post(
         `${server_url()}/api/v1/blog/add-new-post`,
         formData,
-        config
+        multi_methods_headers()
       );
       dispatch({
         type: CREATE_BLOG_POST_SUCCESS,
@@ -139,9 +129,7 @@ export const DeleteBlogPost = (id) => async (dispatch) => {
     dispatch({ type: DELETE_BLOG_POST_REQUEST });
     const { data } = await axios.delete(
       `${server_url()}/api/v1/blog/delete-post/${id}`,
-      {
-        withCredentials: true,
-      }
+     get_headers()
     );
     dispatch({
       type: DELETE_BLOG_POST_SUCCESS,
@@ -181,16 +169,11 @@ export const UpdateBlogPost =
       formData.append("keyword", keyword);
       formData.append("metadec", metadec);
       formData.append("metalink", metalink);
-      const config = {
-        withCredentials: true,
-        headers: {
-          "Content-Type": "application/json",
-        },
-      };
+  
       const { data } = await axios.put(
         `${server_url()}/api/v1/blog/update-post/${id}`,
         formData,
-        config
+        multi_methods_headers()
       );
       dispatch({
         type: UPDATE_BLOG_POST_SUCCESS,

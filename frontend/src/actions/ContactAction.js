@@ -9,6 +9,7 @@ import {
 } from "../constants/ContactConstant";
 import axios from "axios";
 import { server_url } from "../utils/Url";
+import { get_headers, multi_methods_headers } from "../utils/Headers";
 
 export const CreateContactAction = (inputValue) => async (dispatch) => {
   try {
@@ -17,16 +18,11 @@ export const CreateContactAction = (inputValue) => async (dispatch) => {
     for (let key in inputValue) {
       formData.append(key, inputValue[key]);
     }
-    const config = {
-      withCredentials: true,
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
+
     const { data } = await axios.post(
       `${server_url()}/api/v1/contact`,
       formData,
-      config
+      multi_methods_headers()
     );
     dispatch({ type: CREATE_CONTACT_SUCCESS, payload: data });
   } catch (error) {
@@ -42,9 +38,7 @@ export const CreateContactAction = (inputValue) => async (dispatch) => {
 export const GetContactAction = () => async (dispatch) => {
   try {
     dispatch({ type: GET_CONTACT_REQUEST });
-    const { data } = await axios.get(`${server_url()}/api/v1/get-contact`, {
-      withCredentials: true,
-    });
+    const { data } = await axios.get(`${server_url()}/api/v1/get-contact`,get_headers());
     dispatch({ type: GET_CONTACT_SUCCESS, payload: data.data });
   } catch (error) {
     dispatch({

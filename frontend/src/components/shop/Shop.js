@@ -1,112 +1,37 @@
 import React, { useEffect, useState } from "react";
 import "./style.css";
-import { useSelector, useDispatch } from "react-redux";
-import { ClearError, getProduct } from "../../actions/ProductAction";
-import ProductCard from "../home/assets/ProductCard";
-import { useAlert } from "react-alert";
-import { FaAlignLeft } from "react-icons/fa6";
+import { useSelector } from "react-redux";
 import Asidebar from "../layout/aside/Asidebar";
-import { useNavigate, useParams } from "react-router-dom";
-import {
-  getAllCategories,
-  get_all_sub_categories,
-} from "../../actions/CategoreAction";
-import ProductAnimation from "../layout/loader/ProductAnimation";
-import AsideAnimation from "../layout/loader/AsideAnimation";
 import { Paginations } from "../../utils/Paginations";
-import SortProductFilter from "../../utils/SortProductFilter";
+import ProductContainor from "./ProductContainor";
 
 const Shop = () => {
-  const { shop } = useParams();
   const [filter, setFilter] = useState(false);
-  const { loding, products, productsCount, error, resultPerPage } = useSelector(
+  const { productsCount, resultPerPage } = useSelector(
     (state) => state.products
   );
-  const { loading: catLoading } = useSelector((state) => state.allCategroe);
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-  //this use state for mob
-  const [sideBarActive, setsideBarActive] = useState(false);
-  const dispatch = useDispatch();
-  const alert = useAlert();
-  //current page
+
   const [currentPage, setCurrentPage] = useState(1);
   const setCurrentPageNo = (e) => {
     setCurrentPage(e);
   };
 
-  // categories
-  const [categorie, setCategories] = useState(shop !== "shop" ? "" : shop);
-
-  // const categoriesHeandler = (e) => {
-  //   // console.log(categorie)
-  //   setCategories(e);
-  //   setsideBarActive(false);
-  //   Navigate(`/${e}`);
-  // };
-
-  // Rating filter
-  const [ratings, setRatings] = useState(0);
-  const ratingsHeandle = (e, newRatings) => {
-    setRatings(newRatings);
-  };
-
-  //current price
-  const [price, setPrice] = useState([0, 1000]);
-  const priceHeandler = (e, newPrice) => {
-    setPrice(newPrice);
-  };
-
-  //clear all filter
-
-  const [clearFilter, setClearFilter] = useState(false);
-
-  const clearFilterHeandler = (e) => {
-    setCurrentPage(1);
-    setPrice([0, 1000]);
-    setCategories("");
-    setRatings(0);
-    setClearFilter(true);
-    setsideBarActive(false);
-  };
   useEffect(() => {
-    if (error) {
-      dispatch(ClearError);
-    }
-    if (clearFilter) {
-      setClearFilter(false);
-      dispatch(getProduct(currentPage, price, categorie, ratings));
-    }
-    dispatch(getAllCategories());
-    dispatch(get_all_sub_categories());
-    dispatch(getProduct(currentPage, price, ratings));
     const handleResize = () => {
-      setWindowWidth(window.innerWidth);
+      setFilter(window.innerWidth < 980 ? true : false);
     };
     window.addEventListener("resize", handleResize);
     // Clean up the event listener when the component unmounts
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, [
-    dispatch,
-    currentPage,
-    categorie,
-    price,
-    ratings,
-    error,
-    alert,
-    clearFilter,
-  ]);
+  }, []);
 
-  const mobFillterFun = () => {
-    setsideBarActive(!sideBarActive);
-  };
-  const length = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
   return (
     <>
       {" "}
       <>
-        <div className="product-cont-row shop-page">
+        <div className="product-cont-row shop-page product-page--">
           <div
             id="prod-cont"
             className={`${
@@ -115,56 +40,12 @@ const Shop = () => {
                 : "prod-cont cont-area-h"
             }`}
           >
-            <aside
-              className={`aside-bar-cont  ${
-                sideBarActive ? "sidebar-active" : ""
-              }`}
-            >
-              <div className="sidebar-cont">
-                <div className="side-bar">
-                  {catLoading ? (
-                    <AsideAnimation />
-                  ) : (
-                    <Asidebar
-                      setFilter={setFilter}
-                      filter={filter}
-                      price={price} // filter price input slider
-                      inputevent={priceHeandler} // filter price event handler
-                      ratingsHeandle={ratingsHeandle} //Rating filter input handler
-                      ratings={ratings} // rating filter
-                      clearFilterHeandler={clearFilterHeandler} //clearFilterHeandler filter input handler
-                      clearFilter={clearFilter} // clearFilterHeandler usestate
-                    />
-                  )}
-                </div>
-              </div>
-            </aside>
-            {windowWidth < 900 ? (
-              <div className="mob-filter">
-                <p onClick={mobFillterFun}>
-                  <FaAlignLeft /> Filter
-                </p>
-              </div>
-            ) : null}
-            <div className="main-content-product product-containor">
-             <SortProductFilter/>
-              <div className="row flex-wrap">
-                {loding ? (
-                  length.map((item, i) => <ProductAnimation key={i} />)
-                ) : (
-                  <>
-                    {products &&
-                      products
-                        .filter((item) => item.productstatus === "Active")
-                        .map((product, i) => (
-                          <div key={i} className="card-col">
-                            <ProductCard product={product} />
-                          </div>
-                        ))}
-                  </>
-                )}
-              </div>
-            </div>
+            <Asidebar
+              setFilter={setFilter}
+              filter={filter}
+              currentPage={currentPage}
+            />
+            <ProductContainor setFilter={setFilter} filter={filter} />
           </div>
         </div>
       </>

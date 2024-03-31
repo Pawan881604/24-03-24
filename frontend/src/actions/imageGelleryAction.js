@@ -22,6 +22,7 @@ import {
   UPLOAD_IMAGE_SUCCESS,
 } from "../constants/imageGelleryCartConstants";
 import { server_url } from "../utils/Url";
+import { get_headers, multi_methods_headers } from "../utils/Headers";
 
 export const getAllImages =
   (currentPage = 1) =>
@@ -30,9 +31,7 @@ export const getAllImages =
       dispatch({ type: IMAGE_REQUEST });
       const { data } = await axios.get(
         `${server_url()}/api/v1/admin/images?page=${currentPage}`,
-        {
-          withCredentials: true,
-        }
+        get_headers()
       );
       dispatch({ type: IMAGE_SUCCESS, payload: data });
     } catch (err) {
@@ -51,16 +50,11 @@ export const uploadImage = (avatar, user) => async (dispatch) => {
     for (let i = 0; i < avatar.length; i++) {
       formData.append("avatar", avatar[i].file);
     }
-    const config = {
-      withCredentials: true,
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    };
+
     const { data } = await axios.post(
       `${server_url()}/api/v1/admin/images/upload`,
       formData,
-      config
+      multi_methods_headers()
     );
     dispatch({ type: UPLOAD_IMAGE_SUCCESS, payload: data.imagesGellery });
   } catch (err) {
@@ -77,16 +71,12 @@ export const updateImageSeo = (id) => async (dispatch) => {
   try {
     dispatch({ type: UPDATE_IMAGE_SEO_REQUEST });
     const formData = new FormData();
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
+
     const data = "dddd";
     // const { data } = await axios.post(
     //   `/api/v1/admin/images/update/${id}`,
     //   formData,
-    //   config
+    //   multi_methods_headers()
     // );
     dispatch({ type: UPDATE_IMAGE_SEO_SUCCESS, payload: data });
   } catch (error) {
@@ -107,16 +97,11 @@ export const updateImageText =
       formdata.append("altText", altText);
       formdata.append("title", title);
       formdata.append("caption", caption);
-      const config = {
-        withCredentials: true,
-        headers: {
-          "Content-Type": "application/json",
-        },
-      };
+
       const { data } = await axios.put(
         `${server_url()}/api/v1/admin/images/update/${id}`,
         formdata,
-        config
+        multi_methods_headers()
       );
       dispatch({ type: UPDATE_TEXT_SUCCESS, payload: data.success });
     } catch (err) {
@@ -130,14 +115,10 @@ export const updateImageText =
 export const imagePrimary = (id) => async (dispatch) => {
   try {
     dispatch({ type: UPDATE_IMAGE_REQUEST });
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
+
     const { data } = await axios.put(
       //`/api/v1/admin/images/update/${id}`,
-      config
+      multi_methods_headers()
     );
     dispatch({ type: UPDATE_IMAGE_SUCCESS, payload: data });
   } catch (err) {
@@ -156,17 +137,12 @@ export const setSelectedImage = (imageData) => ({
 export const getImageId = (ids) => async (dispatch) => {
   try {
     dispatch({ type: IMAGE_ID_REQUEST });
-    const config = {
-      withCredentials: true,
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
+
     if (ids.length > 0) {
       const { data } = await axios.post(
         `${server_url()}/api/v1/admin/images/ids`,
         { ids },
-        config
+        multi_methods_headers()
       );
       dispatch({ type: IMAGE_ID_SUCCESS, payload: data.image });
     }

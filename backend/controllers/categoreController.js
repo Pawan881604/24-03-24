@@ -70,9 +70,9 @@ exports.getAllCategores = catchAsyncError(async (req, res, next) => {
 //---------------------------- sub cat
 
 exports.createSubCategore = catchAsyncError(async (req, res, next) => {
-  console.log(req.body);
+ 
   const { name, slug, Parent_category, description, uuid, img_id } = req.body;
-  console.log(req.body);
+ 
   let url = slug.split(" ").join("-").toLowerCase();
   const user = req.user.id;
 
@@ -117,7 +117,7 @@ exports.get_all_sub_categores = catchAsyncError(async (req, res, next) => {
     { path: "user", model: "User" },
     { path: "thumbnail", model: "Images" },
   ]);
-  console.log(all_sub_categores);
+
   res.status(200).json({
     success: true,
     all_sub_categores,

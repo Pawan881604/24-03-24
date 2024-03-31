@@ -7,7 +7,9 @@ import {
 } from "@material-ui/core";
 import { Rating } from "@material-ui/lab";
 import React from "react";
-import { FaAngellist, FaHeart } from "react-icons/fa6";
+import { FaAngellist, FaHeart, FaInstagram } from "react-icons/fa6";
+import { RiFacebookFill } from "react-icons/ri";
+import { FaSquareXTwitter } from "react-icons/fa6";
 
 const AddReview = ({
   addToWishtHandler,
@@ -22,16 +24,30 @@ const AddReview = ({
   return (
     <>
       <div className="review-area">
-        <DialogActions style={{alignItems:'center',}} className="row">
-          <div className="col-md-6">
+        <div style={{ alignItems: "center", gap: 10 }} className="row">
+          <div className="col-md-5">
+            <span style={{ padding: "0px 5px" }} className="col-md-5">
+              {" "}
+              <RiFacebookFill />
+            </span>
+            <span style={{ padding: "0px 5px" }} className="col-md-5">
+              <FaSquareXTwitter />
+            </span>
+            <span style={{ padding: "0px 5px" }} className="col-md-5">
+              {" "}
+              <FaInstagram />
+            </span>
+          </div>
+
+          <div className="col-md-5">
             <Button onClick={() => addToWishtHandler()}>
-              <span style={{paddingTop:3,paddingRight:10}}>
+              <span style={{ paddingTop: 3, paddingRight: 10 }}>
                 <FaHeart className="faheart cursor-pointer" />
               </span>
               <span>Add to wishlist</span>
             </Button>
           </div>
-          <div className="col-md-6">
+          <div className="col-md-5">
             <Button
               className="button-success"
               onClick={() => submitReviewToggle()}
@@ -39,7 +55,7 @@ const AddReview = ({
               <FaAngellist /> Add Review
             </Button>
           </div>
-        </DialogActions>
+        </div>
         <Dialog
           className="review-main-div"
           area-aria-labelledby="simpale-dialog-title"

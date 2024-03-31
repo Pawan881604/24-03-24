@@ -59,8 +59,13 @@ export const OrderDetails = () => {
             <>
               <div className="order-d-page">
                 <h1>Order's Details</h1>
-                <div className="order-thank">
-                  <FaRegCheckCircle />
+                <div
+                  style={{ maxWidth: 1100, margin: "0 auto" }}
+                  className="order-thank"
+                >
+                  <span>
+                    <FaRegCheckCircle />
+                  </span>
                   <p className="xsm-font-size">
                     <strong>THANK YOU!</strong>
                     Thank you for shopping with us. Your account has been
@@ -208,7 +213,7 @@ export const OrderDetails = () => {
                     </div>
                   </div>
 
-                  <div className="order-details">
+                  {/* <div className="order-details">
                     <div className="billing-details">
                       <h2>Billing details</h2>
                       <div className="Billing-details-area">
@@ -330,7 +335,7 @@ export const OrderDetails = () => {
                         )}
                       </div>
                     </div>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </>

@@ -9,6 +9,7 @@ import {
   PAYMENT_INFO_SUCCESS,
 } from "../constants/PaymentConstants";
 import { server_url } from "../utils/Url";
+import { get_headers, multi_methods_headers } from "../utils/Headers";
 
 export const getCardPayments = (id, order, paymentUuid) => async (dispatch) => {
   try {
@@ -17,16 +18,11 @@ export const getCardPayments = (id, order, paymentUuid) => async (dispatch) => {
     formData.append("Order_info", Order_info);
     formData.append("paymentUuid", paymentUuid);
     dispatch({ type: PAYMENT_DATA_REQUEST });
-    const config = {
-      withCredentials: true,
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
+   
     const { data } = await axios.post(
       `${server_url()}/api/v1/paymentData/${id}`,
       formData,
-      config
+      multi_methods_headers()
     );
     dispatch({ type: PAYMENT_DATA_SUCCESS, payload: data.data });
   } catch (err) {
@@ -39,9 +35,7 @@ export const get_payment_info = (id) => async (dispatch) => {
     dispatch({ type: PAYMENT_INFO_REQUEST });
     const { data } = await axios.get(
       `${server_url()}/api/v1/order/payment-info/${id}`,
-      {
-        withCredentials: true,
-      }
+    get_headers()
     );
     dispatch({ type: PAYMENT_INFO_SUCCESS, payload: data.payment_info });
   } catch (err) {

@@ -8,10 +8,9 @@ import {
 } from "../constants/WishListConstants";
 import axios from "axios";
 import { server_url } from "../utils/Url";
+import { get_headers, multi_methods_headers } from "../utils/Headers";
 export const wishListAction = (id, price) => async (dispatch, getState) => {
-  const { data } = await axios.get(`${server_url()}/api/v1/product/${id}`, {
-    withCredentials: true,
-  });
+  const { data } = await axios.get(`${server_url()}/api/v1/product/${id}`, get_headers());
   dispatch({
     type: ADD_TO_WISHLIST,
     payload: {
@@ -51,16 +50,11 @@ export const CreateBookmarkAction =
       const formData = new FormData();
       formData.append("wishlist_product_id", wishlist_product_id);
       formData.append("wishlist_product_uuid", wishlist_product_uuid);
-      const config = {
-        withCredentials: true,
-        headers: {
-          "Content-Type": "application/json",
-        },
-      };
+    
       const { data } = await axios.post(
         `${server_url()}/api/v1/create-bookmark`,
         formData,
-        config
+        multi_methods_headers()
       );
       dispatch({ type: CREATE_WISHLIST_SUCCESS, payload: data });
     } catch (error) {

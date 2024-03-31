@@ -1,3 +1,4 @@
+import Cookies from "universal-cookie";
 import {
   LOGIN_ERRORS,
   LOGIN_FAIL,
@@ -43,21 +44,31 @@ import {
 
 import axios from "axios";
 import { server_url } from "../utils/Url";
+import { get_headers, multi_methods_headers } from "../utils/Headers";
 
 export const Login = (email, password) => async (dispatch) => {
   try {
     dispatch({ type: LOGIN_REQUEST });
-    const config = {
-      withCredentials: true,
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
+
     const { data } = await axios.post(
       `${server_url()}/api/v1/auth/login`,
       { email, password },
-      config
+      multi_methods_headers()
     );
+    const token = data.token;
+    const cookies = new Cookies(null, { path: "/" });
+    const options = {
+      path: "/", // cookie path
+      // // expires: new Date('2024-12-31'), // absolute expiration date
+      // // maxAge: 3600, // relative max age of the cookie from when the client receives it in seconds
+      // domain: "localhost", // domain for the cookie
+      // secure: false, // accessible through HTTP
+      // httpOnly: true, // only server can access the cookie
+      // sameSite: "None", // enforcement type
+      // partitioned: true, // store using partitioned storage
+    };
+    cookies.set("token", token, options);
+
     dispatch({ type: LOGIN_SUCCESS, payload: data.user });
   } catch (error) {
     dispatch({ type: LOGIN_FAIL, payload: error.response.data.message });
@@ -67,16 +78,11 @@ export const Login = (email, password) => async (dispatch) => {
 export const Singup = (email) => async (dispatch) => {
   try {
     dispatch({ type: SINGUP_REQUEST });
-    const config = {
-      withCredentials: true,
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
+
     const { data } = await axios.post(
       `${server_url()}/api/v1/auth/register`,
       { email },
-      config
+      multi_methods_headers()
     );
     dispatch({ type: SINGUP_SUCCESS, payload: data });
   } catch (error) {
@@ -87,12 +93,7 @@ export const Singup = (email) => async (dispatch) => {
 export const Otp = (userDetails, otp) => async (dispatch) => {
   try {
     dispatch({ type: OTP_REQUEST });
-    const config = {
-      withCredentials: true,
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
+
     const { data } = await axios.put(
       `${server_url()}/api/v1/auth/otp`,
       {
@@ -101,7 +102,7 @@ export const Otp = (userDetails, otp) => async (dispatch) => {
         password: userDetails.password,
         otp,
       },
-      config
+      multi_methods_headers()
     );
 
     dispatch({ type: OTP_SUCCESS, payload: data.user });
@@ -114,16 +115,11 @@ export const Otp = (userDetails, otp) => async (dispatch) => {
 export const userForgetPassword = (email) => async (dispatch) => {
   try {
     dispatch({ type: FORGET_PASSWORD_REQUEST });
-    const config = {
-      withCredentials: true,
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
+
     const { data } = await axios.post(
       `${server_url()}/api/v1/auth/password/forgot`,
       { email },
-      config
+      multi_methods_headers()
     );
 
     dispatch({ type: FORGET_PASSWORD_SUCCESS, payload: data });
@@ -140,16 +136,11 @@ export const resetPassword =
   (token, newPassword, confirmpassword) => async (dispatch) => {
     try {
       dispatch({ type: RESET_PASSWORD_REQUEST });
-      const config = {
-        withCredentials: true,
-        headers: {
-          "Content-Type": "application/json",
-        },
-      };
+
       const { data } = await axios.put(
         `${server_url()}/api/v1/auth/password/reset/${token}`,
         { newPassword, confirmpassword },
-        config
+        multi_methods_headers()
       );
       dispatch({ type: RESET_PASSWORD_SUCCESS, payload: data });
     } catch (error) {
@@ -165,16 +156,11 @@ export const resetPassword =
 export const reSendOtp = (id) => async (dispatch) => {
   try {
     dispatch({ type: OTP_RESENDOTP_REQUEST });
-    const config = {
-      withCredentials: true,
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
+
     const { data } = await axios.post(
       `${server_url()}/api/v1/auth/resend-otp`,
       { id },
-      config
+      multi_methods_headers()
     );
     dispatch({ type: OTP_RESENDOTP_SUCCESS, payload: data.message });
   } catch (err) {
@@ -190,15 +176,10 @@ export const reSendOtp = (id) => async (dispatch) => {
 export const LoadUser = () => async (dispatch) => {
   try {
     dispatch({ type: LOAD_USER_REQUEST });
-    const config = {
-      withCredentials: true,
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
+
     const { data } = await axios.get(
       `${server_url()}/api/v1/auth/profie`,
-      config
+      multi_methods_headers()
     );
     dispatch({ type: LOAD_USER_SUCCESS, payload: data.User });
   } catch (error) {
@@ -210,9 +191,7 @@ export const LoadUser = () => async (dispatch) => {
 
 export const LogoutUser = () => async (dispatch) => {
   try {
-    await axios.get(`${server_url()}/api/v1/auth/logout`, {
-      withCredentials: true,
-    });
+    await axios.get(`${server_url()}/api/v1/auth/logout`, get_headers());
     dispatch({ type: LOGOUT_USER_SUCCESS });
   } catch (error) {
     dispatch({ type: LOGOUT_USER_FAIL, payload: error.response.data.message });
@@ -228,16 +207,11 @@ export const updateUserProfile = (name, email, avatar) => async (dispatch) => {
     myForm.append("name", name);
     myForm.append("email", email);
     myForm.append("avatar", avatar);
-    const config = {
-      withCredentials: true,
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    };
+
     const { data } = await axios.put(
       `${server_url()}/api/v1/auth/profile/update`,
       myForm,
-      config
+      multi_methods_headers()
     );
     dispatch({ type: UPDATE_PROFILE_SUCCESS, payload: data.success });
   } catch (error) {
@@ -253,16 +227,11 @@ export const updateUserProfile = (name, email, avatar) => async (dispatch) => {
 export const updatePassword = (passwords) => async (dispatch) => {
   try {
     dispatch({ type: UPDATE_PASSWORD_REQUEST });
-    const config = {
-      withCredentials: true,
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
+
     const { data } = await axios.put(
       `${server_url()}/api/v1/auth/password/update`,
       passwords,
-      config
+      multi_methods_headers()
     );
     dispatch({ type: UPDATE_PROFILE_SUCCESS, payload: data.success });
   } catch (error) {
@@ -280,9 +249,7 @@ export const getAllUsers = () => async (dispatch) => {
     dispatch({ type: ALL_USER_REQUEST });
     const { data } = await axios.get(
       `${server_url()}/api/v1/auth/admin/users`,
-      {
-        withCredentials: true,
-      }
+      get_headers()
     );
     dispatch({
       type: ALL_USER_SUCCESS,
@@ -303,9 +270,7 @@ export const getUsersDetails = (id) => async (dispatch) => {
     dispatch({ type: ALL_USER_DETAILS_REQUEST });
     const { data } = await axios.get(
       `${server_url()}/api/v1/auth/admin/user/${id}`,
-      {
-        withCredentials: true,
-      }
+      get_headers()
     );
     dispatch({
       type: ALL_USER_DETAILS_SUCCESS,
@@ -323,16 +288,11 @@ export const getUsersDetails = (id) => async (dispatch) => {
 export const updateUserDetails = (id, detailsData) => async (dispatch) => {
   try {
     dispatch({ type: UPDATE_USER_DETAILS_REQUEST });
-    const config = {
-      withCredentials: true,
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
+
     const { data } = await axios.put(
       `${server_url()}/api/v1/auth/admin/user/${id}`,
       detailsData,
-      config
+      multi_methods_headers()
     );
     dispatch({ type: UPDATE_USER_DETAILS_SUCCESS, payload: data.success });
   } catch (error) {
@@ -349,9 +309,7 @@ export const deleteuser = (id) => async (dispatch) => {
     dispatch({ type: DELETE_USER_REQUEST });
     const { data } = await axios.delete(
       `${server_url()}/api/v1/auth/admin/user/${id}`,
-      {
-        withCredentials: true,
-      }
+      get_headers()
     );
     dispatch({ type: DELETE_USER_SUCCESS, payload: data });
   } catch (error) {

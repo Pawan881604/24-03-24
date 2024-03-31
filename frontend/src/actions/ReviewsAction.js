@@ -12,6 +12,7 @@ import {
   REVIEWS_CLEAR_ERROR,
 } from "../constants/ReviewsConstant";
 import { server_url } from "../utils/Url";
+import { get_headers, multi_methods_headers } from "../utils/Headers";
 
 export const createReview =
   (rating, comment, productId, product_uuid, uuid) => async (dispatch) => {
@@ -23,16 +24,11 @@ export const createReview =
       formData.append("productId", productId);
       formData.append("product_uuid", product_uuid);
       formData.append("review_uuid", uuid);
-      const config = {
-        withCredentials: true,
-        headers: {
-          "Content-Type": "application/json",
-        },
-      };
+    
       const { data } = await axios.put(
         `${server_url()}/api/v1/create/product-review`,
         formData,
-        config
+        multi_methods_headers()
       );
       dispatch({
         type: NEW_REVIEW_SUCCESS,
@@ -51,9 +47,7 @@ export const getAllProductReview = () => async (dispatch) => {
     dispatch({ type: ALL_REVIEW_REQUEST });
     const { data } = await axios.get(
       `${server_url()}/api/v1/review/product-review`,
-      {
-        withCredentials: true,
-      }
+     get_headers()
     );
     dispatch({
       type: ALL_REVIEW_SUCCESS,
@@ -74,9 +68,7 @@ export const get_product_review_action =
       dispatch({ type: PRODUCT_REVIEW_REQUEST });
       const { data } = await axios.get(
         `${server_url()}/api/v1/review/single/product-review?page=${currentPage}&product_uuid=${id}`,
-        {
-          withCredentials: true,
-        }
+      get_headers()
       );
       console.log(data);
       dispatch({

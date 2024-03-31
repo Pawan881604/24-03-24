@@ -18,6 +18,7 @@ import {
   VERIFY_MASTER_COUPON_SUCCESS,
 } from "../constants/MasterCouponConstant";
 import { server_url } from "../utils/Url";
+import { get_headers, multi_methods_headers } from "../utils/Headers";
 
 export const CreateMasterCoupon =
   (inputValue, uuid, catIds, prodIds) => async (dispatch) => {
@@ -61,16 +62,11 @@ export const CreateMasterCoupon =
       formData.append("maximumSpend", maximumSpend);
       formData.append("name", name);
       formData.append("uuid", uuid);
-      const config = {
-        withCredentials: true,
-        headers: {
-          "Content-Type": "application/json",
-        },
-      };
+      
       const { data } = await axios.post(
         `${server_url()}/api/v1/create/master-coupon`,
         formData,
-        config
+        multi_methods_headers()
       );
       dispatch({ type: CREATE_MASTER_COUPON_SUCCESS, payload: data });
     } catch (error) {
@@ -89,16 +85,11 @@ export const verifyMasterCoupon =
       formData.append("coupon", coupon);
       formData.append("ids", ids);
       formData.append("subtotal", subtotal);
-      const config = {
-        withCredentials: true,
-        headers: {
-          "Content-Type": "application/json",
-        },
-      };
+      
       const { data } = await axios.post(
         `${server_url()}/api/v1/all-verify-coupon`,
         formData,
-        config
+        multi_methods_headers()
       );
       dispatch({ type: VERIFY_MASTER_COUPON_SUCCESS, payload: data.coupon });
     } catch (error) {
@@ -114,9 +105,7 @@ export const getAllCoupons = () => async (dispatch) => {
     dispatch({ type: ALL_MASTER_COUPON_REQUEST });
     const { data } = await axios.get(
       `${server_url()}/api/v1/all-master-coupon`,
-      {
-        withCredentials: true,
-      }
+      get_headers()
     );
     dispatch({ type: ALL_MASTER_COUPON_SUCCESS, payload: data.allcoupon });
   } catch (error) {
@@ -134,9 +123,7 @@ export const SingleCouponAction = (id) => async (dispatch) => {
     dispatch({ type: SINGLE_MASTER_COUPON_REQUEST });
     const { data } = await axios.get(
       `${server_url()}/api/v1/single-master-coupon/${id}`,
-      {
-        withCredentials: true,
-      }
+      get_headers()
     );
     dispatch({ type: SINGLE_MASTER_COUPON_SUCCESS, payload: data.data });
   } catch (error) {
@@ -159,16 +146,11 @@ export const UpdateSingleCouponAction =
       }
       formData.append("productCategories", catIds);
       formData.append("products", prodIds);
-      const config = {
-        withCredentials: true,
-        headers: {
-          "Content-Type": "application/json",
-        },
-      };
+      
       const { data } = await axios.put(
         `${server_url()}/api/v1/update-single-master-coupon/${id}`,
         formData,
-        config
+        multi_methods_headers()
       );
       dispatch({ type: UPDATE_MASTER_COUPON_SUCCESS, payload: data });
     } catch (error) {

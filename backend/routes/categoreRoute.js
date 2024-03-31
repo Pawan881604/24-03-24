@@ -25,7 +25,7 @@ router.route("/all-categore").get(getAllCategores);
 
 router
   .route("/all-sub-categore")
-  .get(isAuthenticatedUser, authorizeRols("admin"), get_all_sub_categores);
+  .get(get_all_sub_categores);
 
 //--------------- sub cat
 router

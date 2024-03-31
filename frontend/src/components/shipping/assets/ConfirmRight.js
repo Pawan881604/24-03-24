@@ -76,7 +76,9 @@ export const ConfirmRight = ({ cartItem, shippingInfo }) => {
           ? `${coupon_data.disscount}%`
           : null,
       discounttype: coupon_data && coupon_data.type,
-      coupon_discount:Math.abs(discountedprice===0?0:totalPrice-discountedprice),
+      coupon_discount: Math.abs(
+        discountedprice === 0 ? 0 : totalPrice - discountedprice
+      ),
       uuid,
       totalQuantity,
     };
@@ -93,7 +95,7 @@ export const ConfirmRight = ({ cartItem, shippingInfo }) => {
     if (coupon_data) {
       if (coupon_data.type === "percentage") {
         const discount = totalPrice * (coupon_data.disscount / 100);
-        const  data = totalPrice -discount;
+        const data = totalPrice - discount;
         setDiscountedprice(data);
       } else if (coupon_data.type === "fix items") {
         const data = totalPrice - coupon_data.disscount;
@@ -147,22 +149,7 @@ export const ConfirmRight = ({ cartItem, shippingInfo }) => {
                 <Currency price={subtotal} />{" "}
               </span>
             </p>
-            {discountedprice > 0 ? (
-              <p>
-                <span>
-                  coupon:
-                  <span>{coupon_data && coupon_data.name}</span>
-                </span>
 
-                <span>
-                  RS -
-                  {discountedprice ? (
-                    <Currency price={totalPrice - discountedprice} />
-                  ) : null}
-                  <span onClick={removeCoupon}>Remove</span>
-                </span>
-              </p>
-            ) : null}
             <p>
               <span>Shipping Charges:</span>
               <span>
@@ -186,9 +173,27 @@ export const ConfirmRight = ({ cartItem, shippingInfo }) => {
                 />
               </span>
             </p>
+            {discountedprice > 0 ? (
+              <p>
+                <span>
+                  coupon:
+                  <span>{coupon_data && coupon_data.name}</span>
+                </span>
+
+                <span>
+                  RS -
+                  {discountedprice ? (
+                    <Currency price={totalPrice - discountedprice} />
+                  ) : null}
+                  <span onClick={removeCoupon}>Remove</span>
+                </span>
+              </p>
+            ) : null}
           </div>
 
-          <Button className="button-success" onClick={proccessPayment}>Proccess to Payment</Button>
+          <Button className="button-success" onClick={proccessPayment}>
+            Proccess to Payment
+          </Button>
         </div>
       </div>
     </>

@@ -5,12 +5,11 @@ import {
 } from "../constants/CartConstants";
 import axios from "axios";
 import { server_url } from "../utils/Url";
+import { get_headers } from "../utils/Headers";
 
 export const addItemsToCart =
   (id, quantity, price,label) => async (dispatch, getState) => {
-    const { data } = await axios.get(`${server_url()}/api/v1/product/${id}`, {
-      withCredentials: true,
-    });
+    const { data } = await axios.get(`${server_url()}/api/v1/product/${id}`, get_headers());
     dispatch({
       type: ADD_TO_CART,
       payload: {

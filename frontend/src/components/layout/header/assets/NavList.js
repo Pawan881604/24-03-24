@@ -46,7 +46,6 @@ export const NavList = ({ toggleContentRemove }) => {
                 .filter((item) => item.category_status === "Active")
                 .map((item, i) => (
                   <li key={i}>
-                    {console.log(item)}
                     <div className="mob-list">
                       <span onClick={toggleContentRemove}>
                         <NavLink to={`/product-category/${item.slug}`}>
@@ -66,7 +65,11 @@ export const NavList = ({ toggleContentRemove }) => {
                     >
                       {nav_sub_categores &&
                         nav_sub_categores
-                          .filter((sub) => item.uuid === sub.Parent_category &&  sub.category_status === 'Active' )
+                          .filter(
+                            (sub) =>
+                              item.uuid === sub.Parent_category &&
+                              sub.category_status === "Active"
+                          )
                           .map((subItem, i) => (
                             <li key={i}>
                               <span onClick={toggleContentRemove}>

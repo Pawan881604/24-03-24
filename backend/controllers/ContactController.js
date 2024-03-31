@@ -4,7 +4,7 @@ const catchAsyncError = require("../middleware/catchAsyncError");
 
 exports.CreateContactDetails = catchAsyncError(async (req, res, next) => {
   const { name, email, subject, message } = req.body;
-  console.log(req.body);
+
   const data = await Contact.create({ name, email, subject, message });
   res.status(201).json({ success: true, data });
 });
@@ -19,7 +19,7 @@ exports.GetContactDetails = catchAsyncError(async (req, res, next) => {
 // exports.SingleContactDetails = catchAsyncError(async (req, res, next) => {
 //
 //     const { id } = req.body;
-//     console.log(id)
+//    
 //     const data = await Contact.findOne({_id:id});
 //     res.status(201).json({ success: true, data });
 //   } catch (error) {

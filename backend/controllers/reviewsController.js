@@ -65,7 +65,7 @@ exports.createProductReviews = catchAsyncError(async (req, res, next) => {
   const length = revilength.length;
   const sum = revilength.reduce((acc, review) => acc + review.rating, 0);
   const average = sum / length;
-  console.log(average)
+
   product.product_ratings = length;
   product.product_ratings_average = average.toFixed(2);
   await product.save();

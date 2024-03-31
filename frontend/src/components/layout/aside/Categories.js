@@ -1,9 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaMinus, FaPlus } from "react-icons/fa6";
-import { useSelector } from "react-redux";
+import { useSelector, dispatch, useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { IoIosArrowDown, IoIosArrowForward } from "react-icons/io";
-const Categories = ({ clearFilter }) => {
+import {
+  getAllCategories,
+  get_all_sub_categories,
+} from "../../../actions/CategoreAction";
+
+const Categories = () => {
+  const dispatch = useDispatch();
   const {
     loading: catLoading,
     allcategroes,
@@ -15,12 +21,10 @@ const Categories = ({ clearFilter }) => {
   const [is_visiable_sub_cat_list, set_is_visiable__sub_cat_list] = useState(
     []
   );
-  // useEffect(() => {
-  //   if (clearFilter) {
-  //     setRemoveClass(true);
-  //   }
-
-  // }, [clearFilter]);
+  useEffect(() => {
+    dispatch(getAllCategories());
+    dispatch(get_all_sub_categories());
+  }, [dispatch]);
 
   const toggleSubCategories = (index) => {
     const newVisibility = [...is_visiable_sub_cat_list];
@@ -78,15 +82,21 @@ const Categories = ({ clearFilter }) => {
                       className="category-list"
                     >
                       {all_sub_categores &&
-                        all_sub_categores.map((subitem, i) => (
-                          <li key={i}>
-                            <NavLink
-                              to={`/product-category/${item.slug}/${subitem.slug}`}
-                            >
-                              {subitem.name}
-                            </NavLink>
-                          </li>
-                        ))}
+                        all_sub_categores
+                          .filter(
+                            (sub) =>
+                              item.uuid === sub.Parent_category &&
+                              sub.category_status === "Active"
+                          )
+                          .map((subitem, i) => (
+                            <li key={i}>
+                              <NavLink
+                                to={`/product-category/${item.slug}/${subitem.slug}`}
+                              >
+                                {subitem.name}
+                              </NavLink>
+                            </li>
+                          ))}
                     </ul>
                   </li>
                 ))}

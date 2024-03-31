@@ -39,13 +39,12 @@ import {
   UPDATE_SUB_CATEGORIE_SUCCESS,
 } from "../constants/CategoreConstants";
 import { server_url } from "../utils/Url";
+import { get_headers, multi_methods_headers } from "../utils/Headers";
 
 export const nav_main_list = () => async (dispatch) => {
   try {
     dispatch({ type: MAIN_NAV_CATEGORIE_REQUEST });
-    const { data } = await axios.get(`${server_url()}/api/v1/all-categore`, {
-      withCredentials: true,
-    });
+    const { data } = await axios.get(`${server_url()}/api/v1/all-categore`,get_headers());
    
     dispatch({ type: MAIN_NAV_CATEGORIE_SUCCESS, payload: data.allCategores });
   } catch (error) {
@@ -61,9 +60,7 @@ export const nav_sub_list = () => async (dispatch) => {
     dispatch({ type: SUB_NAV_CATEGORIE_REQUEST });
     const { data } = await axios.get(
       `${server_url()}/api/v1/all-sub-categore`,
-      {
-        withCredentials: true,
-      }
+    get_headers()
     );
     dispatch({ type: SUB_NAV_CATEGORIE_SUCCESS, payload: data });
   } catch (error) {
@@ -85,16 +82,11 @@ export const CreateNewCategore =
       formData.append("uuid", uuid);
       formData.append("img_id", img_id);
 
-      const config = {
-        withCredentials: true,
-        headers: {
-          "Content-Type": "application/json",
-        },
-      };
+     
       const { data } = await axios.post(
         `${server_url()}/api/v1/create/categore`,
         formData,
-        config
+        multi_methods_headers()
       );
 
       dispatch({ type: NEW_CATEGORIE_SUCCESS, payload: data });
@@ -117,16 +109,11 @@ export const create_new_sub_categore =
       formData.append("uuid", uuid);
       formData.append("img_id", img_id);
 
-      const config = {
-        withCredentials: true,
-        headers: {
-          "Content-Type": "application/json",
-        },
-      };
+      
       const { data } = await axios.post(
         `${server_url()}/api/v1/create/sub-categore`,
         formData,
-        config
+        multi_methods_headers()
       );
 
       dispatch({ type: NEW_SUB_CATEGORIE_SUCCESS, payload: data });
@@ -141,9 +128,7 @@ export const create_new_sub_categore =
 export const getAllCategories = () => async (dispatch) => {
   try {
     dispatch({ type: ALL_CATEGORIE_REQUEST });
-    const { data } = await axios.get(`${server_url()}/api/v1/all-categore`, {
-      withCredentials: true,
-    });
+    const { data } = await axios.get(`${server_url()}/api/v1/all-categore`, get_headers());
     dispatch({ type: ALL_CATEGORIE_SUCCESS, payload: data.allCategores });
   } catch (error) {
     dispatch({
@@ -158,9 +143,7 @@ export const get_all_sub_categories = () => async (dispatch) => {
     dispatch({ type: ALL_SUB_CATEGORIE_REQUEST });
     const { data } = await axios.get(
       `${server_url()}/api/v1/all-sub-categore`,
-      {
-        withCredentials: true,
-      }
+     get_headers()
     );
     dispatch({ type: ALL_SUB_CATEGORIE_SUCCESS, payload: data });
   } catch (error) {
@@ -183,16 +166,11 @@ export const CreateNewSubCategore =
       formData.append("title", title);
       formData.append("parent", parent);
       formData.append("description", description);
-      const config = {
-        withCredentials: true,
-        headers: {
-          "Content-Type": "application/json",
-        },
-      };
+    
       const { data } = await axios.post(
         `${server_url()}/api/v1/create/sub-categore`,
         formData,
-        config
+        multi_methods_headers()
       );
       dispatch({ type: NEW_CATEGORIE_SUCCESS, payload: data });
     } catch (error) {
@@ -211,17 +189,11 @@ export const StausCategory = (id, status) => async (dispatch) => {
 
     const formdata = new FormData();
     formdata.append("status", status);
-    const config = {
-      withCredentials: true,
-
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
+   
     const { data } = axios.put(
       `${server_url()}/api/v1/update/category-status/${id}`,
       formdata,
-      config
+      multi_methods_headers()
     );
     dispatch({ type: STATUS_CATEGORIE_SUCCESS, payload: data });
   } catch (error) {
@@ -237,16 +209,11 @@ export const StausSubCategory = (id, status) => async (dispatch) => {
     dispatch({ type: STATUS_SUB_CATEGORIE_REQUEST });
     const formdata = new FormData();
     formdata.append("status", status);
-    const config = {
-      withCredentials: true,
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
+  
     const { data } = axios.put(
       `${server_url()}/api/v1/update/sub-category-status/${id}`,
       formdata,
-      config
+      multi_methods_headers()
     );
     dispatch({ type: STATUS_SUB_CATEGORIE_SUCCESS, payload: data });
   } catch (error) {
@@ -262,9 +229,7 @@ export const getSingleParentCat = (id) => async (dispatch) => {
     dispatch({ type: GET_SINGLE_PRODUCT_CAT_REQUEST });
     const { data } = await axios.get(
       `${server_url()}/api/v1/product/all-parent-category/${id}`,
-      {
-        withCredentials: true,
-      }
+     get_headers()
     );
     dispatch({
       type: GET_SINGLE_PRODUCT_CAT_SUCCESS,
@@ -304,16 +269,11 @@ export const updateParentCategory =
       formdata.append("keyword", keyword);
       formdata.append("metadec", metadec);
       formdata.append("metalink", metalink);
-      const config = {
-        withCredentials: true,
-        headers: {
-          "Content-Type": "application/json",
-        },
-      };
+     
       const { data } = axios.put(
         `${server_url()}/api/v1/update/parent-category/${id}`,
         formdata,
-        config
+        multi_methods_headers()
       );
       dispatch({ type: UPDATE_PARENT_CATEGORIE_SUCCESS, payload: data });
     } catch (error) {
@@ -331,9 +291,7 @@ export const SingleSubCategoryAction = (id) => async (dispatch) => {
     dispatch({ type: SINGLE_SUB_CATEGORIE_REQUEST });
     const { data } = await axios.get(
       `${server_url()}/api/v1/product/all-sub-category/${id}`,
-      {
-        withCredentials: true,
-      }
+     get_headers()
     );
     dispatch({ type: SINGLE_SUB_CATEGORIE_SUCCESS, payload: data.subcategory });
   } catch (error) {
@@ -374,16 +332,11 @@ export const UpdateSubCategoryAction =
       formdata.append("metadec", metadec);
       formdata.append("metalink", metalink);
       formdata.append("productsubcatid", productsubcatid);
-      const config = {
-        withCredentials: true,
-        headers: {
-          "Content-Type": "application/json",
-        },
-      };
+     
       const { data } = await axios.put(
         `${server_url()}/api/v1//update/sub-category/${id}`,
         formdata,
-        config
+        multi_methods_headers()
       );
       dispatch({ type: UPDATE_SUB_CATEGORIE_SUCCESS, payload: data });
     } catch (error) {

@@ -73,45 +73,24 @@ import {
   NEW_PRODUCT_REQUEST,
 } from "../constants/ProductConstants";
 import { server_url } from "../utils/Url";
+import { get_headers, multi_methods_headers } from "../utils/Headers";
 
 export const getProduct =
-  (
-    currentPage = 1,
-    price = [0, 1000],
-    ratings,
-    categorie,
-    subcategory,
-    discount = 0
-  ) =>
+  (currentPage = 1, price = [0, 1000], categorie, subcategory, discount = 0) =>
   async (dispatch) => {
+    console.log(subcategory);
     try {
       dispatch({ type: ALL_PRODUCT_REQUEST });
       let link = `${server_url()}/api/v1/products?page=${currentPage}&product_sale_price[gte]=${
         price[0]
       }&product_sale_price[lte]=${price[1]}`;
-      if (ratings) {
-        link = `${server_url()}/api/v1/products?page=${currentPage}&product_sale_price[gte]=${
-          price[0]
-        }&product_sale_price[lte]=${price[1]}&product_ratings[gte]=${ratings}`;
+      if (categorie) {
+        link += `&product_category=${categorie}`;
       }
       if (subcategory) {
-        link = `${server_url()}/api/v1/products?page=${currentPage}&product_sale_price[gte]=${
-          price[0]
-        }&product_sale_price[lte]=${
-          price[1]
-        }&product_category=${categorie}&product_subcategory=${subcategory}&product_ratings[gte]=${ratings}`;
+        link += `&product_subcategory=${subcategory}`;
       }
-      if (discount > 0) {
-        link = `${server_url()}/api/v1/products?page=${currentPage}&product_sale_price[gte]=${
-          price[0]
-        }&product_sale_price[lte]=${
-          price[1]
-        }&product_category=${categorie}&product_ratings[gte]=${ratings}&discount=${discount}`;
-      }
-
-      const { data } = await axios.get(link, {
-        withCredentials: true,
-      });
+      const { data } = await axios.get(link, get_headers());
       dispatch({
         type: ALL_PRODUCT_SUCCESS,
         payload: data,
@@ -127,9 +106,10 @@ export const getProduct =
 export const featureProduct = () => async (dispatch) => {
   try {
     dispatch({ type: ALL_FEATURE_PRODUCT_REQUEST });
-    const { data } = await axios.get(`${server_url()}/api/v1/feature-product`, {
-      withCredentials: true,
-    });
+    const { data } = await axios.get(
+      `${server_url()}/api/v1/feature-product`,
+      get_headers()
+    );
     dispatch({
       type: ALL_FEATURE_PRODUCT_SUCCESS,
       payload: data.product,
@@ -147,9 +127,7 @@ export const searchProduct = (searchData) => async (dispatch) => {
     dispatch({ type: ALL_PRODUCT_SEARCH_REQUEST });
     const { data } = await axios.get(
       `${server_url()}/api/v1/products?keyword=${searchData}`,
-      {
-        withCredentials: true,
-      }
+      get_headers()
     );
     dispatch({ type: ALL_PRODUCT_SEARCH_SUCCESS, payload: data });
   } catch (err) {
@@ -163,9 +141,10 @@ export const searchProduct = (searchData) => async (dispatch) => {
 export const getProductDetails = (id) => async (dispatch) => {
   try {
     dispatch({ type: PRODUCCT_DETAILS_REQUEST });
-    const { data } = await axios.get(`${server_url()}/api/v1/product/${id}`, {
-      withCredentials: true,
-    });
+    const { data } = await axios.get(
+      `${server_url()}/api/v1/product/${id}`,
+      get_headers()
+    );
     dispatch({
       type: PRODUCCT_DETAILS_SUCCESS,
       payload: data.Product,
@@ -199,9 +178,7 @@ export const getCategorie =
           price[1]
         }&product_category=${categorie}&ratings[gte]=${ratings}`;
       }
-      const { data } = await axios.get(link, {
-        withCredentials: true,
-      });
+      const { data } = await axios.get(link, get_headers());
       dispatch({
         type: ALL_CAT_SUCCESS,
         payload: data,
@@ -217,16 +194,11 @@ export const getCategorie =
 export const newReview = (reviewData) => async (dispatch) => {
   try {
     dispatch({ type: NEW_REVIEW_REQUEST });
-    const config = {
-      withCredentials: true,
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
+
     const { data } = await axios.put(
       `${server_url()}/api/v1/review`,
       reviewData,
-      config
+      multi_methods_headers()
     );
     dispatch({
       type: NEW_REVIEW_SUCCESS,
@@ -245,9 +217,10 @@ export const newReview = (reviewData) => async (dispatch) => {
 export const adminGetAllProducts = () => async (dispatch) => {
   try {
     dispatch({ type: ADMIN_PRODUCT_REQUEST });
-    const { data } = await axios.get(`${server_url()}/api/v1/admin/products`, {
-      withCredentials: true,
-    });
+    const { data } = await axios.get(
+      `${server_url()}/api/v1/admin/products`,
+      get_headers()
+    );
     dispatch({
       type: ADMIN_PRODUCT_SUCCESS,
       payload: data.Products,
@@ -280,16 +253,11 @@ export const createNewProduct =
       for (let i = 0; i < checkedItems.length; i++) {
         formData.append("category", String(checkedItems[i]));
       }
-      const config = {
-        withCredentials: true,
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      };
+
       const { data } = await axios.post(
         `${server_url()}/api/v1/product/new`,
         formData,
-        config
+        multi_methods_headers()
       );
       dispatch({
         type: NEW_PRODUCT_SUCCESS,
@@ -312,9 +280,7 @@ export const deleteAdminProduct = (id) => async (dispatch) => {
     });
     const { data } = await axios.delete(
       `${server_url()}/api/v1/product/${id}`,
-      {
-        withCredentials: true,
-      }
+      get_headers()
     );
     dispatch({
       type: DELETE_PRODUCT_SUCCESS,
@@ -347,12 +313,7 @@ export const updateAdminProduct =
       dispatch({
         type: UPDATE_PRODUCT_REQUEST,
       });
-      const config = {
-        withCredentials: true,
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      };
+
       const formData = new FormData();
       formData.append("variation", VariationJsonData);
       formData.append("content", content);
@@ -373,7 +334,7 @@ export const updateAdminProduct =
       const { data } = await axios.put(
         `${server_url()}/api/v1/product/${id}`,
         formData,
-        config
+        multi_methods_headers()
       );
       dispatch({
         type: UPDATE_PRODUCT_SUCCESS,
@@ -390,9 +351,10 @@ export const updateAdminProduct =
 export const getAllReview = (id) => async (dispatch) => {
   try {
     dispatch({ type: ALL_REVIEW_REQUEST });
-    const { data } = await axios.get(`${server_url()}/api/v1/review?id=${id}`, {
-      withCredentials: true,
-    });
+    const { data } = await axios.get(
+      `${server_url()}/api/v1/review?id=${id}`,
+      get_headers()
+    );
     dispatch({
       type: ALL_REVIEW_SUCCESS,
       payload: data.reviews,
@@ -410,16 +372,11 @@ export const updateProductStatus = (id, status) => async (dispatch) => {
     dispatch({ type: PRODUCT_STATUS_REQUEST });
     const formdata = new FormData();
     formdata.append("status", status);
-    const config = {
-      withCredentials: true,
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
+
     const { data } = axios.put(
       `${server_url()}/api/v1/product/status/${id}`,
       formdata,
-      config
+      multi_methods_headers()
     );
     dispatch({ type: PRODUCT_STATUS_SUCCESS, payload: data });
   } catch (error) {
@@ -441,16 +398,11 @@ export const ProductAttributeAction =
       for (let key in inputValue) {
         formData.append(key, inputValue[key]);
       }
-      const config = {
-        withCredentials: true,
-        headers: {
-          "Content-Type": "application/json",
-        },
-      };
+
       const { data } = await axios.post(
         `${server_url()}/api/v1/admin/products/create-attribute`,
         formData,
-        config
+        multi_methods_headers()
       );
       dispatch({ type: CREATE_ATTRIBUTE_SUCCESS, payload: data });
     } catch (error) {
@@ -470,9 +422,7 @@ export const GetProductAttributeAction = (label) => async (dispatch) => {
     if (label) {
       link = `${server_url()}/api/v1/admin/products/product-attribute?keyword=${label}`;
     }
-    const { data } = await axios.get(link, {
-      withCredentials: true,
-    });
+    const { data } = await axios.get(link, get_headers());
     dispatch({ type: GET_ATTRIBUTE_SUCCESS, payload: data.attributedata });
   } catch (error) {
     dispatch({
@@ -489,9 +439,7 @@ export const GetSingleAttributeAction = (id) => async (dispatch) => {
     dispatch({ type: GET_SINGLE_ATTRIBUTE_REQUEST });
     const { data } = await axios.get(
       `${server_url()}/api/v1/admin/products/single-attribute/${id}`,
-      {
-        withCredentials: true,
-      }
+      get_headers()
     );
     dispatch({
       type: GET_SINGLE_ATTRIBUTE_SUCCESS,
@@ -514,16 +462,11 @@ export const UpdateAttributeAction = (id, inputValue) => async (dispatch) => {
     for (let key in inputValue) {
       formData.append(key, inputValue[key]);
     }
-    const config = {
-      withCredentials: true,
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
+
     const { data } = await axios.put(
       `${server_url()}/api/v1/admin/products/update-attribute/${id}`,
       formData,
-      config
+      multi_methods_headers()
     );
     dispatch({ type: UPDATE_ATTRIBUTE_SUCCESS, payload: data });
   } catch (error) {
@@ -542,16 +485,11 @@ export const StatusProductAttributeAction =
       dispatch({ type: DELETE_ATTRIBUTE_REQUEST });
       const formData = new FormData();
       formData.append("isdelete", isdelete);
-      const config = {
-        withCredentials: true,
-        headers: {
-          "Content-Type": "application/json",
-        },
-      };
+
       const { data } = await axios.put(
         `${server_url()}/api/v1/admin/products/status-attribute/${id}`,
         formData,
-        config
+        multi_methods_headers()
       );
       dispatch({ type: DELETE_ATTRIBUTE_SUCCESS, payload: data });
     } catch (error) {
@@ -573,16 +511,11 @@ export const ProductLabelAction =
       for (let key in inputValue) {
         formData.append(key, inputValue[key]);
       }
-      const config = {
-        withCredentials: true,
-        headers: {
-          "Content-Type": "application/json",
-        },
-      };
+
       const { data } = await axios.post(
         `${server_url()}/api/v1/admin/products/create-label/${id}`,
         formData,
-        config
+        multi_methods_headers()
       );
       dispatch({ type: CREATE_LABEL_SUCCESS, payload: data.label });
     } catch (error) {
@@ -599,9 +532,7 @@ export const GetProductLabelAction = (id) => async (dispatch) => {
   try {
     dispatch({ type: GET_LABEL_REQUEST });
     let link = `${server_url()}/api/v1/admin/products/get-label/${id}`;
-    const { data } = await axios.get(link, {
-      withCredentials: true,
-    });
+    const { data } = await axios.get(link, get_headers());
     dispatch({ type: GET_LABEL_SUCCESS, payload: data.data });
   } catch (error) {
     dispatch({ type: GET_LABEL_FAIL, payload: error.response.data.message });
@@ -612,9 +543,7 @@ export const GetAllProductLabelAction = () => async (dispatch) => {
   try {
     dispatch({ type: GET_ALL_LABEL_REQUEST });
     let link = `${server_url()}/api/v1/admin/products/all-att-labels`;
-    const { data } = await axios.get(link, {
-      withCredentials: true,
-    });
+    const { data } = await axios.get(link, get_headers());
     dispatch({ type: GET_ALL_LABEL_SUCCESS, payload: data.attributedata });
   } catch (error) {
     dispatch({
@@ -631,9 +560,7 @@ export const GetSingleLabel = (id) => async (dispatch) => {
     dispatch({ type: GET_SINGLE_LABEL_REQUEST });
     const { data } = await axios.get(
       `${server_url()}/api/v1/admin/products/single-label/${id}`,
-      {
-        withCredentials: true,
-      }
+      get_headers()
     );
     dispatch({ type: GET_SINGLE_LABEL_SUCCESS, payload: data.attributedata });
   } catch (error) {
@@ -654,16 +581,11 @@ export const UpdateProductLabelAction =
       for (let key in inputValue) {
         formData.append(key, inputValue[key]);
       }
-      const config = {
-        withCredentials: true,
-        headers: {
-          "Content-Type": "application/json",
-        },
-      };
+
       const { data } = await axios.put(
         `${server_url()}/api/v1/admin/products/update-label/${id}`,
         formData,
-        config
+        multi_methods_headers()
       );
       dispatch({ type: UPDATE_LABEL_SUCCESS, payload: data.attributedata });
     } catch (error) {
@@ -682,16 +604,11 @@ export const StatusProductAttributLabeleAction =
       dispatch({ type: DELETE_LABEL_REQUEST });
       const formData = new FormData();
       formData.append("isdelete", isdelete);
-      const config = {
-        withCredentials: true,
-        headers: {
-          "Content-Type": "application/json",
-        },
-      };
+
       const { data } = await axios.put(
         `${server_url()}/api/v1/admin/products/status-label/${id}`,
         formData,
-        config
+        multi_methods_headers()
       );
 
       dispatch({ type: DELETE_LABEL_SUCCESS, payload: data });

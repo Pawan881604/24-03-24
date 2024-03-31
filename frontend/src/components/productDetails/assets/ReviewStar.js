@@ -20,7 +20,7 @@ export const ReviewStar = ({ review, review_length, review_average }) => {
           <div className="he-content">
             <div className="avg-rating-container">
               <div>
-                <h3>{review_average && review_average}</h3>
+                <h3>{review_average && review_average==='NaN'?0:review_average}</h3>
               </div>
               <div>
                 <p>Average Rating</p>

@@ -44,13 +44,13 @@ import ErrorBoundary from "./utils/ErrorBoundary";
 import ForgetPassword from "./components/user/ForgetPassword";
 import ResetPassword from "./components/user/ResetPassword";
 import WishList from "./components/wishlist/WishList";
-import Category from "./components/category/Category";
+import Category from "./components/shop/category/Category";
 import ContactUs from "./components/contact us/ContactUs";
 import Producttracking from "./components/tracking/Producttracking";
 import Ordercancel from "./components/tracking/Ordercancel";
 import CreatePost from "./components/admin/post/createpost/CreatePost";
 import AllPost from "./components/admin/post/allpost/AllPost";
-import SubCategory from "./components/subcategory/SubCategory";
+
 import PaymentDetails from "./components/admin/orders/updateorders/assets/PaymentDetails";
 import AllCategory from "./components/admin/category/allCategory/AllCategory";
 import UpdateCategory from "./components/admin/category/updateCtegory/UpdateCategory";
@@ -73,6 +73,7 @@ import UpdateAttributeLabel from "./components/admin/products/attribute/label/up
 import GetContactDetails from "./components/admin/contact/GetContactDetails";
 import UserDashboard from "./components/account/assets/UserDashboard";
 import CouponUpdate from "./components/admin/marketing/update/CoupenUpdate "
+import SubCategory from "./components/shop/subcategory/SubCategory";
 
 const ScrollToTop = () => {
   const { pathname } = useLocation();
@@ -127,7 +128,7 @@ function App() {
                   }
                 />
                 <Route
-                  path="/product-category/:category/:id"
+                  path="/product-category/:category/:subcategory"
                   element={<SubCategory />}
                 />
                 <Route path="/wishlist" element={<WishList />} />

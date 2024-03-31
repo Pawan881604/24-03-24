@@ -9,7 +9,7 @@ const cors = require("cors");
 app.use(express.json());
 app.use(cookieParser());
 app.use(bodyparser.urlencoded({ extended: true }));
-app.use("/uploads", express.static("uploads")); 
+app.use("/uploads", express.static("uploads"));
 
 // Define your CORS options
 var corsOptions = {
@@ -17,13 +17,18 @@ var corsOptions = {
   optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
 };
 
-app.use(cors({
-  origin: 'http://localhost:3000', // Allow requests only from this origin
-  methods: ['GET', 'POST','PUT','DELETE'], // Allow only specified HTTP methods
-  allowedHeaders: ['Content-Type', 'Authorization','cookies'], // Allow only specified headers
-  credentials: true // Allow sending cookies and other credentials
-}));
+app.use(
+  cors({
+    // origin: 'http://localhost:3000', // Allow requests only from this origin
+    origin: "http://localhost:3000", // Allow requests only from this origin
+    methods: ["GET", "POST", "PUT", "DELETE"], // Allow only specified HTTP methods
+    allowedHeaders: ["Content-Type", "Authorization", "cookies"], // Allow only specified headers
+    credentials: true, // Allow sending cookies and other credentials
+    optionsSuccessStatus: 200,
+    preflightContinue: false,
 
+  })
+);
 
 // Use CORS middleware with options
 // app.use(cors(corsOptions));

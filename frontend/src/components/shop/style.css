@@ -5,11 +5,13 @@
   gap: 10px;
   overflow: hidden;
 }
-.shop-page {
+/* .product-page-- {
   padding: 40px 0;
-}
+} */
+
 aside {
   width: 25%;
+  transform: translateX(0%);
   transition: all 0.3s ease-in-out;
 }
 .sidebar-cont {
@@ -26,9 +28,6 @@ aside {
 .filter {
   border: 1px solid #6dce3e !important;
   color: #6dce3e !important;
-  position: absolute !important;
-  left: 20px;
-  top: 0;
   width: 110px;
   z-index: 10;
   background-color: #fff;
@@ -55,19 +54,19 @@ aside {
   bottom: 10px;
   width: 100%;
 }
-.shop-page .product-details {
+.product-page-- .product-details {
   text-align: center;
 }
-.shop-page .rev-are {
+.product-page-- .rev-are {
   justify-content: center;
 }
-.shop-page .product-price p {
+.product-page-- .product-price p {
   font-size: 16px;
 }
-.shop-page .product-details h3 {
+.product-page-- .product-details h3 {
   margin: 5px 0 0 0;
 }
-.shop-page .product-details h3 a {
+.product-page-- .product-details h3 a {
   width: 100%;
   white-space: nowrap;
   display: block;
@@ -101,7 +100,8 @@ aside {
   color: #fff !important;
 }
 .full-width aside {
-  width: 0% !important;
+  width: 0%;
+  transform: translateX(-100%) !important;
 }
 .full-width .product-containor {
   width: 100% !important;
@@ -122,42 +122,75 @@ aside {
   border-radius: 2px;
   max-width: none;
 }
+.product-toolbox {
+  padding: 5px;
+}
+.full-width .left-toolbox {
+  padding-left: 50px;
+}
+@media only screen and (max-width: 1100px) {
+  .product-toolbox .left-toolbox > div:nth-child(1) {
+    width: 20%;
+  }
+}
 @media only screen and (max-width: 1008px) {
-  .shop-page .aside-bar-cont {
+  .product-page-- .aside-bar-cont {
     width: 30%;
   }
   .full-width .product-containor .card-col {
     width: 33.33% !important;
   }
-  .shop-page .product-containor .card-col {
+  .product-page-- .product-containor .card-col {
     width: 31.5% !important;
   }
-  .shop-page .product-containor {
+  .product-page-- .product-containor {
     width: 70%;
   }
 }
-@media only screen and (max-width: 900px) {
-  .shop-page .product-containor {
+
+@media only screen and (max-width: 980px) {
+  .product-page-- aside {
+    position: fixed;
+    left: -50%;
+    transform: translateX(50%);
+    width: 100%;
+    z-index: 2;
+    background: #000000a3;
+    height: 100vh;
+  }
+  .product-page-- .sidebar-cont {
+    padding: 10px !important;
+    margin-top: 10px !important;
+    width: 60% !important;
+  }
+  .product-page-- .product-containor {
     width: 100% !important;
   }
-  .shop-page .product-containor .card-col {
+  .product-page-- .mob--cont {
+    /* position:relative; */
+    overflow: scroll;
+    /* height:100vh; */
+  }
+}
+@media only screen and (max-width: 900px) {
+  .product-page-- .product-containor {
+    width: 100% !important;
+  }
+  .product-page-- .product-containor .card-col {
     width: 32.1%;
   }
   .sidebar-active {
     left: 0px;
     top: 170px;
   }
-  .shop-page .aside-bar-cont {
+  .product-page-- .aside-bar-cont {
     width: 100%;
-  }
-  #prod-cont {
-    flex-direction: column;
   }
   .p-sho-cont {
     width: 100%;
   }
 
-  .shop-page {
+  .product-page-- {
     padding: 0px 0;
   }
   aside {
@@ -193,37 +226,43 @@ aside {
   }
 }
 @media screen and (max-width: 768px) {
-  .shop-page .aside-bar-cont {
+  .product-page-- .aside-bar-cont {
     width: 100% !important;
   }
+  .product-toolbox {
+    display: none !important;
+  }
+  .main-content-product {
+    margin-top: 20px;
+  }
 }
-.shop-page .aside-bar-cont {
+.product-page-- .aside-bar-cont {
   width: 25%;
 }
-.shop-page .product-containor {
+.product-page-- .product-containor {
   width: 75%;
 }
-.shop-page .product-containor .card-col {
+.product-page-- .product-containor .card-col {
   width: 32%;
 }
 
 @media only screen and (max-width: 809px) {
-  .shop-page .product-containor .card-col {
+  .product-page-- .product-containor .card-col {
     width: 32%;
   }
 }
 @media only screen and (max-width: 750px) {
-  .shop-page .product-containor .card-col {
+  .product-page-- .product-containor .card-col {
     width: 48% !important;
   }
 }
 @media only screen and (max-width: 665px) {
-  .shop-page .product-containor .card-col {
+  .product-page-- .product-containor .card-col {
     width: 47.5% !important;
   }
 }
 @media only screen and (max-width: 499px) {
-  .shop-page .product-containor .card-col {
+  .product-page-- .product-containor .card-col {
     width: 47.111% !important;
   }
 }

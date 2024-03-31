@@ -17,7 +17,6 @@ import { v4 as uuidv4, v4 } from "uuid";
 const ProductCard = ({ product }) => {
   const dispatch = useDispatch();
 
-  console.log(product);
   const options = {
     value: product && product.product_ratings_average,
     precision: 0.5,
