@@ -1,13 +1,14 @@
 function get_headers() {
   const config = {
     withCredentials: true,
+    credentials: "include",
   };
   return config;
 }
 function multi_methods_headers() {
   const config = {
     withCredentials: true,
-    credentials: 'include',
+    credentials: "include",
     headers: {
       "Content-Type": "application/json",
     },
