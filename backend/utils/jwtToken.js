@@ -13,7 +13,7 @@ const sendToken = (user, statusCode, res) => {
     // // maxAge: 3600, // relative max age of the cookie from when the client receives it in seconds
     domain: "localhost", // domain for the cookie
     secure: false, // accessible through HTTP
-    httpOnly: false, // only server can access the cookie
+    httpOnly: true, // only server can access the cookie
     sameSite: "lax", // enforcement type
     partitioned: false, // store using partitioned storage
   };
